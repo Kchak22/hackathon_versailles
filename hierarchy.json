@@ -1,0 +1,246 @@
+{
+  "group_id": "g_chateau",
+  "title": "Le Château",
+  "duration_minutes": 75,
+  "subgroups": [
+    {
+      "subgroup_id": "sg_grand_appartement_du_roi",
+      "title": "Grand Appartement du Roi",
+      "places": [
+        {
+          "place_id": "plc_salon_d_hercule",
+          "title": "Salon d'Hercule",
+          "objects": [
+            {
+              "object_id": "obj_plafond_hercule",
+              "title": "Plafond : Apothéose d’Hercule (François Lemoyne, 1736)",
+              "text": "Le plafond monumental peint par François Lemoyne représente l’Apothéose d’Hercule, son accession à l’immortalité. Jupiter lui donne pour épouse Hébé, déesse de la Jeunesse. Cette fresque de 480 m² a demandé trois ans de travail.",
+              "important_facts": [
+                "Artiste : François Lemoyne",
+                "Date : 1733-1736",
+                "Thème : Apothéose d’Hercule",
+                "Technique : peinture plafonnante",
+                "Dimensions : 480 m²"
+              ]
+            },
+            {
+              "object_id": "obj_tapisseries_hercule",
+              "title": "Tapisseries : Mythologie d’Hercule (Manufacture des Gobelins)",
+              "text": "Le salon conserve des tapisseries des Gobelins illustrant la mythologie d’Hercule et la gloire royale.",
+              "important_facts": [
+                "Manufacture : Gobelins",
+                "Thème : Mythologie d’Hercule",
+                "Période : fin XVIIe - début XVIIIe"
+              ]
+            },
+            {
+              "object_id": "obj_bustes_hercule",
+              "title": "Sculptures : Bustes en marbre blanc",
+              "text": "Des bustes en marbre blanc complètent le décor fastueux de la salle, rehaussée de marbres et de dorures.",
+              "important_facts": [
+                "Matériau : marbre blanc",
+                "Fonction : ornementation"
+              ]
+            }
+          ]
+        },
+        {
+          "place_id": "plc_salon_de_l_abondance",
+          "title": "Salon de l'Abondance",
+          "objects": [
+            {
+              "object_id": "obj_decor_abondance",
+              "title": "Décor : Allégorie de l’Abondance (Charles Le Brun, XVIIe siècle)",
+              "text": "Le décor conçu par Charles Le Brun célèbre la prospérité, le commerce et la fertilité. Le salon servait de salle de rafraîchissements lors des soirées d’appartement.",
+              "important_facts": [
+                "Artiste : Charles Le Brun (direction)",
+                "Thème : Abondance, prospérité et commerce",
+                "Fonction : salle des rafraîchissements"
+              ]
+            }
+          ]
+        },
+        {
+          "place_id": "plc_salon_de_venus",
+          "title": "Salon de Vénus",
+          "objects": [
+            {
+              "object_id": "obj_decor_venus",
+              "title": "Décor : Vénus, déesse de la Magnificence (Charles Le Brun, XVIIe siècle)",
+              "text": "Le salon de Vénus présente un décor foisonnant de stucs, dorures et marbres. Charles Le Brun a représenté Vénus comme la figure de la magnificence et de la séduction associée à la splendeur de la Cour.",
+              "important_facts": [
+                "Artiste : Charles Le Brun (direction)",
+                "Thème : Vénus, magnificence et séduction",
+                "Matériaux : stucs, dorures, marbres"
+              ]
+            },
+            {
+              "object_id": "obj_buffets_venus",
+              "title": "Mobilier : Tables de festin (XVIIe siècle)",
+              "text": "Les soirs d’appartement, le salon accueillait des buffets avec fruits, pâtisseries, confiseries et agrumes.",
+              "important_facts": [
+                "Usage : festins et rafraîchissements",
+                "Produits : agrumes, fruits confits, massepains",
+                "Période : Louis XIV"
+              ]
+            }
+          ]
+        },
+        {
+          "place_id": "plc_salon_de_diane",
+          "title": "Salon de Diane",
+          "objects": [
+            {
+              "object_id": "obj_plafond_diane",
+              "title": "Plafond : Diane présidant à la Nuit (Gabriel Blanchard, 1670s)",
+              "text": "La composition peinte par Gabriel Blanchard représente Diane, déesse de la Chasse et de la Nuit, entourée de divinités et d’allégories.",
+              "important_facts": [
+                "Artiste : Gabriel Blanchard",
+                "Date : vers 1670",
+                "Thème : Diane, la Nuit et la Chasse"
+              ]
+            },
+            {
+              "object_id": "obj_buste_louisxiv_bernin",
+              "title": "Sculpture : Buste de Louis XIV (Gian Lorenzo Bernini, 1665, marbre)",
+              "text": "Ce buste monumental du Roi Soleil par Le Bernin illustre son autorité et sa majesté.",
+              "important_facts": [
+                "Artiste : Gian Lorenzo Bernini",
+                "Date : 1665",
+                "Matériau : marbre",
+                "Sujet : Louis XIV en majesté"
+              ]
+            },
+            {
+              "object_id": "obj_billard_diane",
+              "title": "Mobilier : Table de billard (Louis XIV)",
+              "text": "Le salon de Diane servait de salle de billard où le roi et la cour se divertissaient trois fois par semaine.",
+              "important_facts": [
+                "Usage : divertissement royal",
+                "Période : Louis XIV"
+              ]
+            }
+          ]
+        },
+        {
+          "place_id": "plc_salon_de_mars",
+          "title": "Salon de Mars",
+          "objects": [
+            {
+              "object_id": "obj_plafond_mars",
+              "title": "Décor : Allégorie de Mars, dieu de la Guerre (Charles Le Brun, XVIIe siècle)",
+              "text": "Le décor martial évoque Mars, dieu de la Guerre, en lien avec la fonction de salle des gardes.",
+              "important_facts": [
+                "Artiste : Charles Le Brun (direction)",
+                "Thème : Mars, dieu de la Guerre",
+                "Fonction : salle des gardes"
+              ]
+            },
+            {
+              "object_id": "obj_peinture_famille_darius",
+              "title": "Peinture : La Famille de Darius aux pieds d’Alexandre (Charles Le Brun, XVIIe siècle)",
+              "text": "Grande composition de Charles Le Brun illustrant la clémence d’Alexandre envers la famille de Darius.",
+              "important_facts": [
+                "Artiste : Charles Le Brun",
+                "Thème : Alexandre et Darius",
+                "Période : XVIIe siècle"
+              ]
+            },
+            {
+              "object_id": "obj_portraits_louisxv_marie",
+              "title": "Peintures : Portraits de Louis XV et Marie Leszczyńska (XVIIIe siècle)",
+              "text": "Deux portraits d’apparat de Louis XV et de la reine ornent les murs latéraux.",
+              "important_facts": [
+                "Sujets : Louis XV et Marie Leszczyńska",
+                "Type : portraits d’apparat",
+                "Date : XVIIIe siècle"
+              ]
+            }
+          ]
+        },
+        {
+          "place_id": "plc_salon_de_mercure",
+          "title": "Salon de Mercure",
+          "objects": [
+            {
+              "object_id": "obj_plafond_mercure",
+              "title": "Plafond : Mercure présidant au Commerce et aux Arts (Jean-Baptiste de Champaigne, XVIIe siècle)",
+              "text": "Le plafond représente Mercure, messager des dieux, protecteur du commerce et des arts.",
+              "important_facts": [
+                "Artiste : Jean-Baptiste de Champaigne",
+                "Thème : Mercure, commerce et arts",
+                "Période : XVIIe siècle"
+              ]
+            },
+            {
+              "object_id": "obj_lit_parade",
+              "title": "Lit de parade : symbole du pouvoir royal (XVIIe siècle)",
+              "text": "Lit de parade exposé dans la chambre, symbole du pouvoir monarchique.",
+              "important_facts": [
+                "Usage : lit de parade, symbole de pouvoir",
+                "Période : XVIIe siècle"
+              ]
+            },
+            {
+              "object_id": "obj_lit_louisphilippe",
+              "title": "Lit à la française (Louis-Philippe, XIXe siècle)",
+              "text": "Lit installé par Louis-Philippe lors de la transformation en musée. Lit à la française richement décoré.",
+              "important_facts": [
+                "Commanditaire : Louis-Philippe",
+                "Date : XIXe siècle",
+                "Type : lit à la française"
+              ]
+            }
+          ]
+        },
+        {
+          "place_id": "plc_salon_d_apollon",
+          "title": "Salon d'Apollon",
+          "objects": [
+            {
+              "object_id": "obj_plafond_apollon",
+              "title": "Plafond : Apollon, dieu du Soleil, des Arts et de la Paix (XVIIe siècle)",
+              "text": "Le plafond est consacré à Apollon, figure solaire et protecteur des arts et de la paix.",
+              "important_facts": [
+                "Thème : Apollon, Soleil, Arts et Paix",
+                "Période : XVIIe siècle"
+              ]
+            },
+            {
+              "object_id": "obj_trone_argent",
+              "title": "Trône d’argent (1682-1689, disparu)",
+              "text": "Le trône monumental en argent, haut de 2,60 m, recouvert de plaques et de sculptures d’argent, trônait sous un dais. Il fut fondu en 1689.",
+              "important_facts": [
+                "Date : 1682-1689",
+                "Matériau : argent massif",
+                "Hauteur : 2,60 m",
+                "Destin : fondu en 1689"
+              ]
+            },
+            {
+              "object_id": "obj_portrait_louisxiv",
+              "title": "Peinture : Portrait de Louis XIV en grand costume royal (Hyacinthe Rigaud, 1701)",
+              "text": "Le portrait de Louis XIV en costume royal domine la salle du trône. C’est l’un des tableaux les plus célèbres de l’histoire de France.",
+              "important_facts": [
+                "Artiste : Hyacinthe Rigaud",
+                "Date : 1701",
+                "Sujet : Louis XIV en costume royal"
+              ]
+            },
+            {
+              "object_id": "obj_decor_apollon",
+              "title": "Décor : marbres, stucs et boiseries dorées (XVIIe siècle)",
+              "text": "Le décor de marbres polychromes, stucs et boiseries dorées exprime la majesté du Roi Soleil.",
+              "important_facts": [
+                "Matériaux : marbres, stucs, dorures",
+                "Fonction : salle du trône",
+                "Période : XVIIe siècle"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
