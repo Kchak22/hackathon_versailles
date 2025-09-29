@@ -1,0 +1,14 @@
+[project]
+name = "hackathon-versailles"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "langchain>=0.3.27",
+    "langchain-community>=0.3.30",
+    "langchain-core>=0.3.76",
+    "langgraph>=0.6.7",
+    "mistralai>=1.9.10",
+    "tavily-python>=0.7.12",
+]
