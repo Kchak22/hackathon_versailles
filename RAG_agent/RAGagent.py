@@ -2,7 +2,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 import langchain_core.documents
 from pathlib import Path
-import json
+import json, os
 
 
 
@@ -18,7 +18,7 @@ class RAGagent():
             encode_kwargs={'normalize_embeddings': True}
         )
 
-        with open("hierarchy.json", "r", encoding="utf-8") as f:
+        with open(os.path.join("RAG_agent","hierarchy.json"), "r", encoding="utf-8") as f:
             self.hierarchy = json.load(f)
         
         self.build_index()
@@ -29,33 +29,34 @@ class RAGagent():
         Build one faiss index where each chunk represents an object from the hierarchy file 
         """
         chunks = []
-        group_id = self.hierarchy["group_id"]
-        group_title = self.hierarchy["title"]
-        for subgroup in self.hierarchy["subgroups"]:
-            subgroup_id = subgroup["subgroup_id"]
-            subgroup_title = subgroup["title"]
-            for place in subgroup["places"]:
-                place_id = place["place_id"]
-                place_title = place["title"]
-                for object in place["objects"]:
-                    object_id = object["object_id"]
-                    object_title = object["title"]
-                    content = object["text"]
-                    chunk = langchain_core.documents.Document(
-                            page_content= content,
-                            metadata={
-                                "group_id" : group_id,
-                                "group_title" : group_title,
-                                "subgroup_id" : subgroup_id,
-                                "subgroup_title" : subgroup_title,
-                                "place_id" : place_id,
-                                "place_title" : place_title,
-                                "object_id" : object_id,
-                                "object_title" : object_title,
-                            }
-                        )
-                    chunks.append(chunk)
-                    print(f"✅ Chunk created for object: {object_title}")
+        for group in self.hierarchy:
+            group_id = self.hierarchy[group]["group_id"]
+            group_title = self.hierarchy[group]["title"]
+            for subgroup in self.hierarchy[group]["subgroups"]:
+                subgroup_id = subgroup["subgroup_id"]
+                subgroup_title = subgroup["title"]
+                for place in subgroup["places"]:
+                    place_id = place["place_id"]
+                    place_title = place["title"]
+                    for object in place["objects"]:
+                        object_id = object["object_id"]
+                        object_title = object["title"]
+                        content = object["text"]
+                        chunk = langchain_core.documents.Document(
+                                page_content= content,
+                                metadata={
+                                    "group_id" : group_id,
+                                    "group_title" : group_title,
+                                    "subgroup_id" : subgroup_id,
+                                    "subgroup_title" : subgroup_title,
+                                    "place_id" : place_id,
+                                    "place_title" : place_title,
+                                    "object_id" : object_id,
+                                    "object_title" : object_title,
+                                }
+                            )
+                        chunks.append(chunk)
+                        print(f"✅ Chunk created for object: {object_title}")
 
         save_dir = Path("checkpoints")
         save_dir.mkdir(parents=True, exist_ok=True)

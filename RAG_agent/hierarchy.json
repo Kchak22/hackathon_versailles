@@ -1,0 +1,1024 @@
+{
+  "g_chateau" :{
+    "group_id": "g_chateau",
+    "title": "Le Château",
+    "duration_minutes": 75,
+    "horaires": "Le château est ouvert, tous les jours sauf les lundis. Haute saison (1er avril - 31 octobre). Horaires : 9h – 18h30. Dernière admission : 17h45. Fermeture des caisses : 17h30. Basse saison (1er novembre - 31 mars). Horaires : 9h – 17h30. Dernière admission : 16h45. Fermeture des caisses : 16h40. Fermé le 25 décembre et le 1er janvier",
+    "subgroups": [
+      {
+        "subgroup_id": "sg_grand_appartement_du_roi",
+        "title": "Grand Appartement du Roi",
+        "places": [
+          {
+            "place_id": "plc_salon_d_hercule",
+            "title": "Salon d'Hercule",
+            "objects": [
+              {
+                "object_id": "obj_plafond_hercule",
+                "title": "Plafond : Apothéose d’Hercule (François Lemoyne, 1736)",
+                "text": "Le plafond monumental peint par François Lemoyne représente l’Apothéose d’Hercule, son accession à l’immortalité. Jupiter lui donne pour épouse Hébé, déesse de la Jeunesse. Cette fresque de 480 m² a demandé trois ans de travail.",
+                "important_facts": [
+                  "Artiste : François Lemoyne",
+                  "Date : 1733-1736",
+                  "Thème : Apothéose d’Hercule",
+                  "Technique : peinture plafonnante",
+                  "Dimensions : 480 m²"
+                ]
+              },
+              {
+                "object_id": "obj_tapisseries_hercule",
+                "title": "Tapisseries : Mythologie d’Hercule (Manufacture des Gobelins)",
+                "text": "Le salon conserve des tapisseries des Gobelins illustrant la mythologie d’Hercule et la gloire royale.",
+                "important_facts": [
+                  "Manufacture : Gobelins",
+                  "Thème : Mythologie d’Hercule",
+                  "Période : fin XVIIe - début XVIIIe"
+                ]
+              },
+              {
+                "object_id": "obj_bustes_hercule",
+                "title": "Sculptures : Bustes en marbre blanc",
+                "text": "Des bustes en marbre blanc complètent le décor fastueux de la salle, rehaussée de marbres et de dorures.",
+                "important_facts": [
+                  "Matériau : marbre blanc",
+                  "Fonction : ornementation"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_salon_de_l_abondance",
+            "title": "Salon de l'Abondance",
+            "objects": [
+              {
+                "object_id": "obj_decor_abondance",
+                "title": "Décor : Allégorie de l’Abondance (Charles Le Brun, XVIIe siècle)",
+                "text": "Le décor conçu par Charles Le Brun célèbre la prospérité, le commerce et la fertilité. Le salon servait de salle de rafraîchissements lors des soirées d’appartement.",
+                "important_facts": [
+                  "Artiste : Charles Le Brun (direction)",
+                  "Thème : Abondance, prospérité et commerce",
+                  "Fonction : salle des rafraîchissements"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_salon_de_venus",
+            "title": "Salon de Vénus",
+            "objects": [
+              {
+                "object_id": "obj_decor_venus",
+                "title": "Décor : Vénus, déesse de la Magnificence (Charles Le Brun, XVIIe siècle)",
+                "text": "Le salon de Vénus présente un décor foisonnant de stucs, dorures et marbres. Charles Le Brun a représenté Vénus comme la figure de la magnificence et de la séduction associée à la splendeur de la Cour.",
+                "important_facts": [
+                  "Artiste : Charles Le Brun (direction)",
+                  "Thème : Vénus, magnificence et séduction",
+                  "Matériaux : stucs, dorures, marbres"
+                ]
+              },
+              {
+                "object_id": "obj_buffets_venus",
+                "title": "Mobilier : Tables de festin (XVIIe siècle)",
+                "text": "Les soirs d’appartement, le salon accueillait des buffets avec fruits, pâtisseries, confiseries et agrumes.",
+                "important_facts": [
+                  "Usage : festins et rafraîchissements",
+                  "Produits : agrumes, fruits confits, massepains",
+                  "Période : Louis XIV"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_salon_de_diane",
+            "title": "Salon de Diane",
+            "objects": [
+              {
+                "object_id": "obj_plafond_diane",
+                "title": "Plafond : Diane présidant à la Nuit (Gabriel Blanchard, 1670s)",
+                "text": "La composition peinte par Gabriel Blanchard représente Diane, déesse de la Chasse et de la Nuit, entourée de divinités et d’allégories.",
+                "important_facts": [
+                  "Artiste : Gabriel Blanchard",
+                  "Date : vers 1670",
+                  "Thème : Diane, la Nuit et la Chasse"
+                ]
+              },
+              {
+                "object_id": "obj_buste_louisxiv_bernin",
+                "title": "Sculpture : Buste de Louis XIV (Gian Lorenzo Bernini, 1665, marbre)",
+                "text": "Ce buste monumental du Roi Soleil par Le Bernin illustre son autorité et sa majesté.",
+                "important_facts": [
+                  "Artiste : Gian Lorenzo Bernini",
+                  "Date : 1665",
+                  "Matériau : marbre",
+                  "Sujet : Louis XIV en majesté"
+                ]
+              },
+              {
+                "object_id": "obj_billard_diane",
+                "title": "Mobilier : Table de billard (Louis XIV)",
+                "text": "Le salon de Diane servait de salle de billard où le roi et la cour se divertissaient trois fois par semaine.",
+                "important_facts": [
+                  "Usage : divertissement royal",
+                  "Période : Louis XIV"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_salon_de_mars",
+            "title": "Salon de Mars",
+            "objects": [
+              {
+                "object_id": "obj_plafond_mars",
+                "title": "Décor : Allégorie de Mars, dieu de la Guerre (Charles Le Brun, XVIIe siècle)",
+                "text": "Le décor martial évoque Mars, dieu de la Guerre, en lien avec la fonction de salle des gardes.",
+                "important_facts": [
+                  "Artiste : Charles Le Brun (direction)",
+                  "Thème : Mars, dieu de la Guerre",
+                  "Fonction : salle des gardes"
+                ]
+              },
+              {
+                "object_id": "obj_peinture_famille_darius",
+                "title": "Peinture : La Famille de Darius aux pieds d’Alexandre (Charles Le Brun, XVIIe siècle)",
+                "text": "Grande composition de Charles Le Brun illustrant la clémence d’Alexandre envers la famille de Darius.",
+                "important_facts": [
+                  "Artiste : Charles Le Brun",
+                  "Thème : Alexandre et Darius",
+                  "Période : XVIIe siècle"
+                ]
+              },
+              {
+                "object_id": "obj_portraits_louisxv_marie",
+                "title": "Peintures : Portraits de Louis XV et Marie Leszczyńska (XVIIIe siècle)",
+                "text": "Deux portraits d’apparat de Louis XV et de la reine ornent les murs latéraux.",
+                "important_facts": [
+                  "Sujets : Louis XV et Marie Leszczyńska",
+                  "Type : portraits d’apparat",
+                  "Date : XVIIIe siècle"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_salon_de_mercure",
+            "title": "Salon de Mercure",
+            "objects": [
+              {
+                "object_id": "obj_plafond_mercure",
+                "title": "Plafond : Mercure présidant au Commerce et aux Arts (Jean-Baptiste de Champaigne, XVIIe siècle)",
+                "text": "Le plafond représente Mercure, messager des dieux, protecteur du commerce et des arts.",
+                "important_facts": [
+                  "Artiste : Jean-Baptiste de Champaigne",
+                  "Thème : Mercure, commerce et arts",
+                  "Période : XVIIe siècle"
+                ]
+              },
+              {
+                "object_id": "obj_lit_parade",
+                "title": "Lit de parade : symbole du pouvoir royal (XVIIe siècle)",
+                "text": "Lit de parade exposé dans la chambre, symbole du pouvoir monarchique.",
+                "important_facts": [
+                  "Usage : lit de parade, symbole de pouvoir",
+                  "Période : XVIIe siècle"
+                ]
+              },
+              {
+                "object_id": "obj_lit_louisphilippe",
+                "title": "Lit à la française (Louis-Philippe, XIXe siècle)",
+                "text": "Lit installé par Louis-Philippe lors de la transformation en musée. Lit à la française richement décoré.",
+                "important_facts": [
+                  "Commanditaire : Louis-Philippe",
+                  "Date : XIXe siècle",
+                  "Type : lit à la française"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_salon_d_apollon",
+            "title": "Salon d'Apollon",
+            "objects": [
+              {
+                "object_id": "obj_plafond_apollon",
+                "title": "Plafond : Apollon, dieu du Soleil, des Arts et de la Paix (XVIIe siècle)",
+                "text": "Le plafond est consacré à Apollon, figure solaire et protecteur des arts et de la paix.",
+                "important_facts": [
+                  "Thème : Apollon, Soleil, Arts et Paix",
+                  "Période : XVIIe siècle"
+                ]
+              },
+              {
+                "object_id": "obj_trone_argent",
+                "title": "Trône d’argent (1682-1689, disparu)",
+                "text": "Le trône monumental en argent, haut de 2,60 m, recouvert de plaques et de sculptures d’argent, trônait sous un dais. Il fut fondu en 1689.",
+                "important_facts": [
+                  "Date : 1682-1689",
+                  "Matériau : argent massif",
+                  "Hauteur : 2,60 m",
+                  "Destin : fondu en 1689"
+                ]
+              },
+              {
+                "object_id": "obj_portrait_louisxiv",
+                "title": "Peinture : Portrait de Louis XIV en grand costume royal (Hyacinthe Rigaud, 1701)",
+                "text": "Le portrait de Louis XIV en costume royal domine la salle du trône. C’est l’un des tableaux les plus célèbres de l’histoire de France.",
+                "important_facts": [
+                  "Artiste : Hyacinthe Rigaud",
+                  "Date : 1701",
+                  "Sujet : Louis XIV en costume royal"
+                ]
+              },
+              {
+                "object_id": "obj_decor_apollon",
+                "title": "Décor : marbres, stucs et boiseries dorées (XVIIe siècle)",
+                "text": "Le décor de marbres polychromes, stucs et boiseries dorées exprime la majesté du Roi Soleil.",
+                "important_facts": [
+                  "Matériaux : marbres, stucs, dorures",
+                  "Fonction : salle du trône",
+                  "Période : XVIIe siècle"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_grand_appartement_de_la_reine",
+        "title": "Grand Appartement de la Reine",
+        "places": [
+          {
+            "place_id": "plc_salle_gardes_reine",
+            "title": "Salle des Gardes de la Reine",
+            "objects": [
+              {
+                "object_id": "obj_decor_salle_gardes_reine",
+                "title": "Décor : Salle des Gardes (XVIIe siècle)",
+                "text": "Salle d’apparat où les gardes de la Reine assuraient la protection de son appartement. La salle est ornée de marbres polychromes, de dorures et de bustes.",
+                "important_facts": [
+                  "Fonction : salle de garde",
+                  "Décor : marbres polychromes et dorures",
+                  "Période : XVIIe siècle"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_antichambre_grand_couvert",
+            "title": "Antichambre du Grand Couvert",
+            "objects": [
+              {
+                "object_id": "obj_usage_grand_couvert",
+                "title": "Usage : Repas du Grand Couvert (XVIIe-XVIIIe siècle)",
+                "text": "Lieu où le roi et la reine prenaient leurs repas publics devant la cour, selon l’étiquette. La salle conserve encore des tableaux évoquant ces scènes solennelles.",
+                "important_facts": [
+                  "Usage : repas publics",
+                  "Nom : Grand Couvert",
+                  "Période : XVIIe-XVIIIe siècle"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_salon_des_nobles",
+            "title": "Salon des Nobles",
+            "objects": [
+              {
+                "object_id": "obj_decor_salon_nobles",
+                "title": "Décor : Salon des Nobles (XVIIe siècle)",
+                "text": "Lieu de réception pour la Reine, orné de riches décors de marbres, dorures et peintures. C’était un espace de représentation destiné à recevoir les dames et seigneurs de la Cour.",
+                "important_facts": [
+                  "Fonction : salon de réception",
+                  "Décor : marbres, dorures, peintures",
+                  "Période : XVIIe siècle"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_chambre_reine",
+            "title": "Chambre de la Reine",
+            "objects": [
+              {
+                "object_id": "obj_lit_reine",
+                "title": "Lit de la Reine (XVIIe-XVIIIe siècle)",
+                "text": "Lit de parade où la Reine recevait les dames de la cour. De nombreuses reines, dont Marie-Antoinette, y vécurent et y donnèrent naissance aux enfants royaux.",
+                "important_facts": [
+                  "Usage : lit de parade et cérémonies",
+                  "Reines : Marie-Thérèse, Marie Leszczyńska, Marie-Antoinette",
+                  "Fonction : lieu des naissances royales"
+                ]
+              },
+              {
+                "object_id": "obj_decor_chambre_reine",
+                "title": "Décor : Chambre de la Reine (XVIIe siècle)",
+                "text": "La chambre présente un décor riche de boiseries dorées, de marbres et de peintures, symbolisant le pouvoir et le prestige de la souveraine.",
+                "important_facts": [
+                  "Décor : boiseries dorées, marbres, peintures",
+                  "Fonction : chambre d’apparat et de vie quotidienne",
+                  "Période : XVIIe-XVIIIe siècle"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_salon_de_la_paix",
+            "title": "Salon de la Paix",
+            "objects": [
+              {
+                "object_id": "obj_plafond_paix",
+                "title": "Plafond : Allégorie de la Paix (François Lemoyne, XVIIIe siècle)",
+                "text": "Le plafond peint par François Lemoyne représente la Paix ramenant l’Abondance. Le salon de la Paix servait d’espace de réception pour la Reine.",
+                "important_facts": [
+                  "Artiste : François Lemoyne",
+                  "Thème : Paix et Abondance",
+                  "Période : XVIIIe siècle"
+                ]
+              },
+              {
+                "object_id": "obj_decor_paix",
+                "title": "Décor : marbres et dorures (XVIIIe siècle)",
+                "text": "Le décor du salon, fait de marbres polychromes et de dorures, exprime la majesté et la fonction représentative du lieu.",
+                "important_facts": [
+                  "Matériaux : marbres polychromes et dorures",
+                  "Fonction : salon de réception de la Reine",
+                  "Période : XVIIIe siècle"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+    {
+        "subgroup_id": "sg_chapelle_royale",
+        "title": "Chapelle royale",
+        "places": [
+          {
+            "place_id": "plc_chapelle_royale",
+            "title": "La Chapelle royale",
+            "objects": [
+              {
+                "object_id": "obj_architecture_chapelle",
+                "title": "Architecture : Élévation gothique et ordre corinthien (Hardouin-Mansart, Robert de Cotte, 1710)",
+                "text": "Chapelle palatine à deux niveaux achevée en 1710 : nef et bas-côté au rez-de-chaussée, grandes tribunes à l’étage. L’élévation emprunte au gothique par sa verticalité, tout en adoptant un ordre corinthien classique. La voûte a été conçue pour former une surface continue (sans arcs doubleaux apparents), favorisant une grande composition peinte.",
+                "important_facts": [
+                  "Architecte concepteur : Jules Hardouin-Mansart",
+                  "Achèvement et direction finale : Robert de Cotte",
+                  "Datation : achevée en 1710 (fin du règne de Louis XIV)",
+                  "Plan : chapelle palatine à deux niveaux (nef en bas, tribunes en haut)",
+                  "Style : synthèse gothique/classique, ordre corinthien"
+                ]
+              },
+              {
+                "object_id": "obj_dedication_saint_louis",
+                "title": "Dédicace : Saint Louis (Louis IX), patron du roi",
+                "text": "La Chapelle royale est dédiée à Saint Louis, ancêtre et saint patron de la monarchie, inscrivant le lieu dans une filiation dynastique et sacrée.",
+                "important_facts": [
+                  "Saint patron : Louis IX (Saint Louis)",
+                  "Fonction symbolique : légitimation religieuse de la monarchie"
+                ]
+              },
+              {
+                "object_id": "obj_voute_peinte",
+                "title": "Plafond/Voûte : Grand décor peint (Antoine Coypel, début XVIIIe siècle)",
+                "text": "La voûte, pensée comme une surface continue, reçoit un grand décor peint par Antoine Coypel, orchestré pour accompagner la solennité de l’espace et la liturgie royale.",
+                "important_facts": [
+                  "Peintre : Antoine Coypel",
+                  "Support : voûte continue (sans arcs doubleaux apparents)",
+                  "Fonction : exaltation religieuse et royale"
+                ]
+              },
+              {
+                "object_id": "obj_grand_orgue_clicquot",
+                "title": "Instrument : Grand orgue de la Chapelle (Robert Clicquot, 1700s)",
+                "text": "Au-dessus du maître-autel se dresse le grand orgue de Robert Clicquot, instrument emblématique de la chapelle, associé à la pratique musicale de la Cour.",
+                "important_facts": [
+                  "Facteur d’orgue : Robert Clicquot (1645–1719)",
+                  "Emplacement : au-dessus de l’autel",
+                  "Usage : accompagnement de la messe et des grandes cérémonies"
+                ]
+              },
+              {
+                "object_id": "obj_tribune_royale",
+                "title": "Espace : Tribune royale (galerie supérieure)",
+                "text": "Le roi et sa famille assistaient à la messe depuis la grande tribune à l’étage. Les dames de la Cour occupaient les tribunes latérales, tandis que la nef accueillait officiers et public.",
+                "important_facts": [
+                  "Disposition : tribunes à l’étage (roi et famille), nef (officiers/public)",
+                  "Fonction : vision hiérarchisée de la liturgie de Cour"
+                ]
+              },
+              {
+                "object_id": "obj_maitre_autel",
+                "title": "Mobilier liturgique : Maître-autel",
+                "text": "Centre de la célébration, le maître-autel structure la perspective de la chapelle ; il est surmonté du grand orgue et encadré par l’ordonnance architecturale corinthienne.",
+                "important_facts": [
+                  "Rôle : cœur de la liturgie",
+                  "Axe visuel : autel → orgue → voûte peinte"
+                ]
+              },
+              {
+                "object_id": "obj_pratiques_liturgiques",
+                "title": "Usage : Messe quotidienne et grandes cérémonies (1710–1789)",
+                "text": "La Cour assistait chaque jour à la messe (vers 10h). Le roi ne descendait au rez-de-chaussée que pour les grandes fêtes (Pâques, Noël, Te Deum), les baptêmes et les mariages des Enfants de France, régulièrement célébrés de 1710 à 1789.",
+                "important_facts": [
+                  "Rythme : messe quotidienne (≈10h)",
+                  "Grandes cérémonies : fêtes solennelles, baptêmes, mariages dynastiques",
+                  "Période d’usage majeur : 1710–1789"
+                ]
+              },
+              {
+                "object_id": "obj_annexes_chapelle",
+                "title": "Annexes : Sacristies et espaces de service (1708–1710 et après)",
+                "text": "Les annexes (dont la Grande Sacristie) complètent l’ensemble liturgique et ont fait l’objet de campagnes d’achèvement et de rénovation au XVIIIe siècle et à l’époque contemporaine.",
+                "important_facts": [
+                  "Éléments : sacristies, circulations de service",
+                  "Travaux : achèvements 1708–1710, restaurations ultérieures"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_opera_royal",
+        "title": "Opéra royal",
+        "places": [
+          {
+            "place_id": "plc_opera_royal",
+            "title": "L’Opéra royal",
+            "objects": [
+              {
+                "object_id": "obj_architecture_opera",
+                "title": "Architecture : Salle en bois peint imitant le marbre (Ange-Jacques Gabriel, 1770)",
+                "text": "L’Opéra royal, conçu par Ange-Jacques Gabriel et inauguré en 1770 pour le mariage du dauphin (futur Louis XVI) avec Marie-Antoinette, est une salle entièrement construite en bois, dont les surfaces sont peintes pour imiter le marbre. Ce choix assure une acoustique exceptionnelle.",
+                "important_facts": [
+                  "Architecte : Ange-Jacques Gabriel",
+                  "Date d’inauguration : 16 mai 1770",
+                  "Événement : mariage de Louis XVI et Marie-Antoinette",
+                  "Matériau : bois peint imitant le marbre",
+                  "Capacité : environ 1200 spectateurs"
+                ]
+              },
+              {
+                "object_id": "obj_salle_transformable",
+                "title": "Disposition : Salle transformable (XVIIIe siècle)",
+                "text": "La salle a été conçue pour être modulable : le parterre pouvait être surélevé au niveau de la scène afin de former un immense salon de bal ou de banquet.",
+                "important_facts": [
+                  "Fonction : théâtre, salle de bal, salle de banquet",
+                  "Disposition : plan transformable avec plancher mobile",
+                  "Usage : grandes fêtes royales"
+                ]
+              },
+              {
+                "object_id": "obj_decor_opera",
+                "title": "Décor : Peintures et sculptures (XVIIIe siècle)",
+                "text": "Le décor intérieur mêle peintures, sculptures et dorures, avec une thématique célébrant Apollon, dieu des arts. La salle illustre le raffinement et la grandeur de la monarchie.",
+                "important_facts": [
+                  "Thème iconographique : Apollon et les arts",
+                  "Décor : peintures, dorures, sculptures",
+                  "Période : XVIIIe siècle"
+                ]
+              },
+              {
+                "object_id": "obj_usage_cour",
+                "title": "Usage : Grandes fêtes de la Cour (1770–1789)",
+                "text": "L’Opéra accueillit des spectacles, concerts, banquets et cérémonies, dont le mariage de Louis XVI et Marie-Antoinette. Il fut utilisé ponctuellement pour de grandes fêtes royales jusqu’à la Révolution.",
+                "important_facts": [
+                  "Usage : spectacles, banquets, mariages dynastiques",
+                  "Événement marquant : mariage de Louis XVI et Marie-Antoinette",
+                  "Période d’usage royal : 1770–1789"
+                ]
+              },
+              {
+                "object_id": "obj_restaurations_opera",
+                "title": "Restaurations : XIXe–XXIe siècle",
+                "text": "Transformé en salle de séances à l’époque de Louis-Philippe, l’Opéra a été restauré au XIXe et surtout au XXe siècle pour retrouver son décor du XVIIIe. La grande restauration achevée en 1957 a restitué l’éclat de la salle.",
+                "important_facts": [
+                  "Transformations : Louis-Philippe (XIXe siècle)",
+                  "Grande restauration : 1952–1957",
+                  "Restitution du décor XVIIIe"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+    {
+        "subgroup_id": "sg_galerie_glaces",
+        "title": "Galerie des Glaces et salons adjacents",
+        "places": [
+          {
+            "place_id": "plc_galerie_glaces",
+            "title": "Galerie des Glaces",
+            "objects": [
+              {
+                "object_id": "obj_architecture_glaces",
+                "title": "Architecture : Galerie des Glaces (Jules Hardouin-Mansart, 1678–1684)",
+                "text": "Longue de 73 mètres et ornée de 357 miroirs, la galerie des Glaces relie le salon de la Guerre au nord et le salon de la Paix au sud. Elle fut conçue par Jules Hardouin-Mansart pour magnifier le règne de Louis XIV.",
+                "important_facts": [
+                  "Architecte : Jules Hardouin-Mansart",
+                  "Date : 1678–1684",
+                  "Dimensions : 73 mètres de long",
+                  "Éléments : 357 miroirs",
+                  "Fonction : galerie de réception et de passage"
+                ]
+              },
+              {
+                "object_id": "obj_decor_glaces",
+                "title": "Décor peint : Apothéose du Roi Soleil (Charles Le Brun, XVIIe siècle)",
+                "text": "Le décor peint par Charles Le Brun glorifie les victoires militaires, politiques et diplomatiques de Louis XIV, mettant en parallèle son règne et celui d’Apollon.",
+                "important_facts": [
+                  "Artiste : Charles Le Brun",
+                  "Thème : Victoires et gloire de Louis XIV",
+                  "Période : 1678–1684"
+                ]
+              },
+              {
+                "object_id": "obj_usage_glaces",
+                "title": "Usage : Grandes cérémonies et signatures historiques",
+                "text": "Lieu des grandes fêtes et cérémonies de la Cour sous l’Ancien Régime, la galerie des Glaces a également accueilli des événements historiques, dont la signature du traité de Versailles en 1919.",
+                "important_facts": [
+                  "Usage : réceptions, fêtes, cérémonies royales",
+                  "Événement marquant : signature du Traité de Versailles (1919)"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_salon_guerre",
+            "title": "Salon de la Guerre",
+            "objects": [
+              {
+                "object_id": "obj_decor_guerre",
+                "title": "Décor : Allégorie de la Guerre (Charles Le Brun, 1680s)",
+                "text": "Situé à l’extrémité nord de la galerie des Glaces, le salon de la Guerre est décoré par Charles Le Brun. La voûte représente Louis XIV victorieux, comparé à un conquérant antique.",
+                "important_facts": [
+                  "Artiste : Charles Le Brun",
+                  "Thème : Louis XIV victorieux, assimilé à un héros antique",
+                  "Période : années 1680"
+                ]
+              },
+              {
+                "object_id": "obj_basse_relief_guerre",
+                "title": "Basse-relief : Louis XIV à cheval foulant ses ennemis (Antoine Coysevox)",
+                "text": "Un grand bas-relief en stuc doré d’Antoine Coysevox montre Louis XIV à cheval foulant ses ennemis, célébrant sa gloire militaire.",
+                "important_facts": [
+                  "Sculpteur : Antoine Coysevox",
+                  "Matériau : stuc doré",
+                  "Sujet : Louis XIV à cheval triomphant"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_salon_paix",
+            "title": "Salon de la Paix",
+            "objects": [
+              {
+                "object_id": "obj_decor_paix_roi",
+                "title": "Décor : Allégorie de la Paix (Charles Le Brun, 1680s)",
+                "text": "Situé à l’extrémité sud de la galerie des Glaces, le salon de la Paix est décoré de peintures de Charles Le Brun exaltant la paix apportée par Louis XIV après ses victoires.",
+                "important_facts": [
+                  "Artiste : Charles Le Brun",
+                  "Thème : Paix et prospérité",
+                  "Période : années 1680"
+                ]
+              },
+              {
+                "object_id": "obj_usage_paix",
+                "title": "Usage : Réceptions de la Reine (XVIIe–XVIIIe siècle)",
+                "text": "Le salon de la Paix servait aussi de lieu de réception pour la Reine, notamment à l’époque de Marie Leszczyńska et de Marie-Antoinette.",
+                "important_facts": [
+                  "Usage : réception privée et publique de la Reine",
+                  "Période : XVIIe–XVIIIe siècle"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_cabinets_marie_antoinette",
+        "title": "Cabinets intérieurs de Marie-Antoinette",
+        "places": [
+          {
+            "place_id": "plc_bibliotheque_reine",
+            "title": "Bibliothèque de la Reine",
+            "objects": [
+              {
+                "object_id": "obj_bibliotheque_ma",
+                "title": "Mobilier : Bibliothèque personnelle (Marie-Antoinette, XVIIIe siècle)",
+                "text": "La Reine fit aménager une bibliothèque privée, attenante à sa chambre. Elle contenait ses lectures favorites, allant des romans aux ouvrages de sciences et d’arts décoratifs.",
+                "important_facts": [
+                  "Commanditaire : Marie-Antoinette",
+                  "Fonction : lecture et étude privée",
+                  "Période : XVIIIe siècle"
+                ]
+              },
+              {
+                "object_id": "obj_decor_bibliotheque",
+                "title": "Décor : Boiseries raffinées (XVIIIe siècle)",
+                "text": "La bibliothèque est décorée de boiseries élégantes peintes et dorées, en harmonie avec l’esprit raffiné des appartements privés.",
+                "important_facts": [
+                  "Décor : boiseries peintes et dorées",
+                  "Style : néoclassique raffiné",
+                  "Période : XVIIIe siècle"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_cabinet_dore",
+            "title": "Cabinet doré",
+            "objects": [
+              {
+                "object_id": "obj_decor_cabinet_dore",
+                "title": "Décor : Boiseries dorées et miroirs (XVIIIe siècle)",
+                "text": "Le Cabinet doré doit son nom à son décor somptueux de boiseries dorées et de miroirs, créant un espace intime et lumineux pour la Reine.",
+                "important_facts": [
+                  "Décor : boiseries dorées et miroirs",
+                  "Fonction : cabinet intime",
+                  "Période : XVIIIe siècle"
+                ]
+              },
+              {
+                "object_id": "obj_usage_cabinet_dore",
+                "title": "Usage : Cabinet de travail privé",
+                "text": "Marie-Antoinette y recevait ses proches et s’y isolait pour ses occupations personnelles, loin de l’étiquette rigide de la Cour.",
+                "important_facts": [
+                  "Usage : cabinet privé",
+                  "Fonction : travail et intimité"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_cabinet_des_poemes",
+            "title": "Cabinet des Poèmes",
+            "objects": [
+              {
+                "object_id": "obj_decor_poemes",
+                "title": "Décor : Panneaux peints et raffinés (XVIIIe siècle)",
+                "text": "Petit cabinet orné de panneaux peints, dédié à la lecture et à l’écriture poétique. Il témoigne du goût raffiné et littéraire de Marie-Antoinette.",
+                "important_facts": [
+                  "Décor : panneaux peints",
+                  "Fonction : lecture et écriture",
+                  "Période : XVIIIe siècle"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_cabinet_intime",
+            "title": "Cabinet intime",
+            "objects": [
+              {
+                "object_id": "obj_decor_cabinet_intime",
+                "title": "Décor : Panneaux de bois précieux (XVIIIe siècle)",
+                "text": "Petit cabinet tapissé de boiseries élégantes, destiné à l’usage personnel de la Reine, qui y conservait ses effets privés.",
+                "important_facts": [
+                  "Matériaux : bois précieux",
+                  "Fonction : cabinet personnel et confidentiel",
+                  "Période : XVIIIe siècle"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_cabinet_de_miroirs",
+            "title": "Cabinet de Miroirs",
+            "objects": [
+              {
+                "object_id": "obj_decor_cabinet_miroirs",
+                "title": "Décor : Glaces et boiseries sculptées (XVIIIe siècle)",
+                "text": "Espace raffiné orné de glaces et de boiseries sculptées, jouant sur les effets de lumière et de réflexion.",
+                "important_facts": [
+                  "Décor : glaces et boiseries sculptées",
+                  "Fonction : cabinet d’apparat privé",
+                  "Période : XVIIIe siècle"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  "g_jardins":{
+    "group_id": "g_jardins",
+    "title": "Les Jardins de Versailles",
+    "duration_minutes": 120,
+    "horaires": "Horaires d'Ouverture du 1er avril au 31 octobre. Ouverts tous les jours, de 7h à 20h30. Dernier accès : 19h sauf météo exceptionnelle (neige, vents violents...). Fermeture anticipée des jardins à 17h30 à l'occasion des GrandesEaux Nocturnes, les samedis du 7 juin au 20 septembre, ainsi que le 24 mai, le 14 juillet, le 15 août et les 26, 28, 29, 30 et 31 octobre.",
+    "subgroups": [
+      {
+        "subgroup_id": "sg_orangerie",
+        "title": "L'Orangerie",
+        "places": [
+          {
+            "place_id": "plc_orangerie",
+            "title": "L'Orangerie",
+            "objects": [
+              {
+                "object_id": "obj_architecture_orangerie",
+                "title": "Architecture : Orangerie monumentale (Jules Hardouin-Mansart, fin XVIIe siècle)",
+                "text": "L’Orangerie est un vaste espace semi-enterré destiné à abriter les orangers, lauriers, grenadiers et palmiers du domaine. Conçue par Hardouin-Mansart, elle combine monumentalité et fonctionnalité.",
+                "important_facts": [
+                  "Architecte : Jules Hardouin-Mansart",
+                  "Fonction : abriter les orangers et plantes exotiques",
+                  "Période : fin XVIIe siècle",
+                  "Dimensions : 155 m de long, 13 m de haut"
+                ]
+              },
+              {
+                "object_id": "obj_escalier_orangerie",
+                "title": "Éléments : Escaliers monumentaux",
+                "text": "De grands escaliers symétriques encadrent l’Orangerie et relient les terrasses supérieures aux parterres.",
+                "important_facts": [
+                  "Fonction : liaisons monumentales",
+                  "Style : classique, symétrique"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_bosquets",
+        "title": "Les Bosquets",
+        "places": [
+          {
+            "place_id": "plc_bosquets",
+            "title": "Bosquets des jardins",
+            "objects": [
+              {
+                "object_id": "obj_bosquet_venus",
+                "title": "Bosquet : Salle de Bal ou Bosquet des Rocailles (André Le Nôtre, 1680)",
+                "text": "Lieu de fêtes en plein air, ce bosquet est orné de cascades et de rocailles servant de décor aux danses et divertissements.",
+                "important_facts": [
+                  "Créateur : André Le Nôtre",
+                  "Fonction : salle de bal en plein air",
+                  "Décor : rocailles, cascades"
+                ]
+              },
+              {
+                "object_id": "obj_bosquet_colonnade",
+                "title": "Bosquet : Colonnade (Jules Hardouin-Mansart, 1685)",
+                "text": "Le Bosquet de la Colonnade est constitué d’un cercle de 32 colonnes de marbre entourant une fontaine centrale.",
+                "important_facts": [
+                  "Architecte : Jules Hardouin-Mansart",
+                  "Date : 1685",
+                  "Éléments : 32 colonnes de marbre"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_sculptures",
+        "title": "Les Sculptures",
+        "places": [
+          {
+            "place_id": "plc_sculptures",
+            "title": "Sculptures des jardins",
+            "objects": [
+              {
+                "object_id": "obj_statues_apollon",
+                "title": "Sculptures : Apollon et les divinités antiques",
+                "text": "Les jardins sont ornés de statues mythologiques, en particulier Apollon, figure solaire assimilée à Louis XIV, et de nombreuses allégories représentant les saisons, les éléments et les fleuves.",
+                "important_facts": [
+                  "Thème : mythologie antique",
+                  "Symbole : Apollon, Soleil et Louis XIV",
+                  "Matériau : marbre et bronze"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_bassins_fontaines",
+        "title": "Les Bassins et les Fontaines",
+        "places": [
+          {
+            "place_id": "plc_bassins_fontaines",
+            "title": "Bassins et Fontaines",
+            "objects": [
+              {
+                "object_id": "obj_bassin_latone",
+                "title": "Bassin : Latone (André Le Nôtre, 1660s)",
+                "text": "Le bassin de Latone représente la déesse implorant Jupiter de punir les paysans de Lycie, transformés en grenouilles et lézards.",
+                "important_facts": [
+                  "Thème : légende de Latone",
+                  "Créateur : André Le Nôtre",
+                  "Date : 1660s",
+                  "Symbolique : pouvoir divin et justice"
+                ]
+              },
+              {
+                "object_id": "obj_bassin_apollon",
+                "title": "Bassin : Apollon surgissant de l’onde (Jean-Baptiste Tuby, 1671)",
+                "text": "Le bassin d’Apollon représente le dieu solaire émergeant des flots sur son char tiré par des chevaux marins.",
+                "important_facts": [
+                  "Sculpteur : Jean-Baptiste Tuby",
+                  "Date : 1671",
+                  "Thème : Apollon, Soleil levant",
+                  "Symbole : Louis XIV assimilé à Apollon"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_allees",
+        "title": "Les Allées",
+        "places": [
+          {
+            "place_id": "plc_allees",
+            "title": "Allées des jardins",
+            "objects": [
+              {
+                "object_id": "obj_grande_allee",
+                "title": "Allée royale : Grande Allée (André Le Nôtre, XVIIe siècle)",
+                "text": "La Grande Allée centrale structure les jardins à la française, reliant le château au Grand Canal.",
+                "important_facts": [
+                  "Créateur : André Le Nôtre",
+                  "Style : jardin à la française",
+                  "Axe : château – Grand Canal"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_parterres",
+        "title": "Les Parterres",
+        "places": [
+          {
+            "place_id": "plc_parterres",
+            "title": "Parterres",
+            "objects": [
+              {
+                "object_id": "obj_parterre_eau",
+                "title": "Parterre d’Eau (André Le Nôtre, XVIIe siècle)",
+                "text": "Deux bassins rectangulaires ornés de statues allégoriques encadrent la perspective du château.",
+                "important_facts": [
+                  "Créateur : André Le Nôtre",
+                  "Date : XVIIe siècle",
+                  "Éléments : bassins rectangulaires, statues"
+                ]
+              },
+              {
+                "object_id": "obj_parterre_latone",
+                "title": "Parterre de Latone (XVIIe siècle)",
+                "text": "Situé entre le château et le bassin de Latone, ce parterre est orné de figures mythologiques et de compositions végétales géométriques.",
+                "important_facts": [
+                  "Thème : mythologie latonienne",
+                  "Style : jardin à la française",
+                  "Période : XVIIe siècle"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_grand_canal",
+        "title": "Le Grand Canal",
+        "places": [
+          {
+            "place_id": "plc_grand_canal",
+            "title": "Le Grand Canal",
+            "objects": [
+              {
+                "object_id": "obj_architecture_canal",
+                "title": "Architecture : Grand Canal (André Le Nôtre, 1667–1679)",
+                "text": "Long de 1 670 mètres, le Grand Canal est une pièce maîtresse du jardin à la française. Conçu par André Le Nôtre, il forme une croix orientée selon les points cardinaux et prolonge la perspective centrale du château.",
+                "important_facts": [
+                  "Créateur : André Le Nôtre",
+                  "Date : 1667–1679",
+                  "Dimensions : 1 670 m de long",
+                  "Style : jardin à la française",
+                  "Fonction : perspective et mise en scène"
+                ]
+              },
+              {
+                "object_id": "obj_usage_canal",
+                "title": "Usage : Navigation et fêtes nautiques",
+                "text": "Le canal servait aux promenades en gondole et aux fêtes nautiques. Louis XIV y fit venir des gondoles de Venise et des gondoliers italiens.",
+                "important_facts": [
+                  "Usage : navigation de plaisance",
+                  "Événements : fêtes nautiques",
+                  "Symbolique : puissance et cosmopolitisme de la Cour"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_grand_trianon",
+        "title": "Le Grand Trianon",
+        "places": [
+          {
+            "place_id": "plc_grand_trianon",
+            "title": "Grand Trianon",
+            "objects": [
+              {
+                "object_id": "obj_architecture_trianon",
+                "title": "Architecture : Grand Trianon en marbre rose (Jules Hardouin-Mansart, 1687)",
+                "text": "Édifié pour Louis XIV en 1687 par Jules Hardouin-Mansart, le Grand Trianon est une résidence d’agrément en marbre rose et porphyre, surnommée le « palais de marbre ».",
+                "important_facts": [
+                  "Architecte : Jules Hardouin-Mansart",
+                  "Date : 1687",
+                  "Matériaux : marbre rose, porphyre",
+                  "Usage : résidence d’agrément"
+                ]
+              },
+              {
+                "object_id": "obj_usage_trianon",
+                "title": "Usage : Retraite du Roi et séjours impériaux",
+                "text": "Louis XIV y échappait à l’étiquette de Versailles. Plus tard, Napoléon Ier et Charles de Gaulle utilisèrent le Grand Trianon comme résidence officielle.",
+                "important_facts": [
+                  "Usage : retraite privée de Louis XIV",
+                  "Usage ultérieur : résidence de Napoléon Ier et Charles de Gaulle",
+                  "Fonction : lieu de gouvernement et de diplomatie"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_petit_trianon",
+        "title": "Le Petit Trianon",
+        "places": [
+          {
+            "place_id": "plc_petit_trianon",
+            "title": "Petit Trianon",
+            "objects": [
+              {
+                "object_id": "obj_architecture_petit_trianon",
+                "title": "Architecture : Petit Trianon (Ange-Jacques Gabriel, 1762–1768)",
+                "text": "Construit par Ange-Jacques Gabriel pour Louis XV et Mme de Pompadour, le Petit Trianon devint le domaine de prédilection de Marie-Antoinette.",
+                "important_facts": [
+                  "Architecte : Ange-Jacques Gabriel",
+                  "Date : 1762–1768",
+                  "Commanditaires : Louis XV, Mme de Pompadour",
+                  "Usage : résidence privée"
+                ]
+              },
+              {
+                "object_id": "obj_usage_petit_trianon",
+                "title": "Usage : Domaine privé de Marie-Antoinette",
+                "text": "Marie-Antoinette fit du Petit Trianon son refuge intime, loin de l’étiquette de la Cour, où elle aménagea ses jardins à l’anglaise.",
+                "important_facts": [
+                  "Usage : refuge privé",
+                  "Personnage principal : Marie-Antoinette",
+                  "Aménagement : jardins à l’anglaise"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_hameau_reine",
+        "title": "Hameau de la Reine",
+        "places": [
+          {
+            "place_id": "plc_hameau_reine",
+            "title": "Hameau de la Reine",
+            "objects": [
+              {
+                "object_id": "obj_architecture_hameau",
+                "title": "Architecture : Hameau rustique (Richard Mique, 1783–1787)",
+                "text": "Conçu par Richard Mique pour Marie-Antoinette, le Hameau de la Reine s’inspire des villages normands et anglais. Il comprend des chaumières, une laiterie, une ferme et un moulin.",
+                "important_facts": [
+                  "Architecte : Richard Mique",
+                  "Date : 1783–1787",
+                  "Style : rustique, inspiré des villages normands",
+                  "Éléments : chaumières, ferme, moulin, laiterie"
+                ]
+              },
+              {
+                "object_id": "obj_usage_hameau",
+                "title": "Usage : Refuge pastoral de Marie-Antoinette",
+                "text": "Marie-Antoinette s’y retirait avec ses enfants et sa suite pour jouer à la vie champêtre, en rupture avec l’étiquette versaillaise.",
+                "important_facts": [
+                  "Usage : refuge pastoral",
+                  "Personnage : Marie-Antoinette",
+                  "Symbolique : idéal de retour à la nature"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+
