@@ -1,5 +1,4 @@
-Dataset/
-checkpoints/
+
 # Environment files
 .env
 .env.local
