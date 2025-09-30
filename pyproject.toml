@@ -17,5 +17,6 @@ dependencies = [
     "mistralai>=1.9.10",
     "pyppeteer>=2.0.0",
     "sentence-transformers>=5.1.1",
+    "streamlit>=1.50.0",
     "tavily-python>=0.7.12",
 ]
