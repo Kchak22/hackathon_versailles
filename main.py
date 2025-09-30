@@ -1,20 +1,31 @@
+# ÉTAPE 0 & 1 : IMPORTS, CONFIGURATION ET DÉFINITION DE L'ÉTAT
 # =============================================================================
-# ÉTAPE 1 : IMPORTS, CONFIGURATION ET DÉFINITION DE L'ÉTAT
-# =============================================================================
-
 import os
 import json
 import uuid
+import requests
 from dotenv import load_dotenv
-from typing import List, Dict, Any, Annotated, Optional, Literal
+from typing import List, Dict, Any, Annotated, Optional, Literal, Union
 from typing_extensions import TypedDict
+from datetime import datetime, timedelta
+from pathlib import Path
 
-# Imports LangChain/LangGraph
-from mistralai import Mistral # Utilisation du client Mistral direct
-from langchain_core.messages import HumanMessage, AIMessage
+# Imports LangChain/LangGraph & RAG
+from langchain_mistralai.chat_models import ChatMistralAI
+from langchain_community.chat_models import ChatOllama
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
 from langgraph.checkpoint.memory import InMemorySaver
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
+import langchain_core.documents
+from mistralai import Mistral
+from RAG_agent.RAGagent import RAGagent
+
+
+
+rag_agent = RAGagent()
 
 # --- Configuration ---
 load_dotenv()
@@ -50,6 +61,7 @@ class GraphState(TypedDict):
     messages: Annotated[list, add_messages]
     user_profile: UserProfile
     question_attempts: int
+    collected_data: Dict[str, Any]
 
 # =============================================================================
 # ÉTAPE 2 & 3 : DÉFINITION DES NŒUDS (WRAPPERS D'AGENTS MISTRAL)
@@ -58,7 +70,6 @@ class GraphState(TypedDict):
 def information_extractor_node(state: GraphState) -> dict:
     """
     Ce nœud appelle l'Agent Mistral AGENT_ID_1 pour extraire les informations.
-    C'est un wrapper autour de la logique de votre coéquipier.
     """
     print("--- NODE: Information Extractor (calling Mistral Agent API) ---")
     
@@ -124,36 +135,100 @@ def ask_clarification_question_node(state: GraphState) -> dict:
         print(f"   > Error calling Mistral Agent 2: {e}")
         return {"messages": [AIMessage(content="I'm having trouble thinking of the right question to ask. Could you please provide more details?")]}
 
+# --- Agent Météo (Amélioré) ---
+def weather_tool(state: GraphState) -> dict:
+    print("--- Tool Call: Real Weather Agent ---")
+    profile = state.get('user_profile', {})
+    visit_date_str = profile.get('visit_date', datetime.now().strftime('%Y-%m-%d'))
+    try:
+        url = "https://api.open-meteo.com/v1/forecast"
+        params = {"latitude": 48.8049, "longitude": 2.1204, "hourly": "temperature_2m,precipitation_probability", "timezone": "Europe/Paris", "start_date": visit_date_str, "end_date": visit_date_str}
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        data = response.json()
+        avg_temp = sum(data["hourly"]["temperature_2m"]) / len(data["hourly"]["temperature_2m"])
+        max_precip_prob = max(data["hourly"]["precipitation_probability"])
+        temp_desc = "cold" if avg_temp < 10 else "cool" if avg_temp < 15 else "pleasant" if avg_temp <= 25 else "warm"
+        precip_desc = "high chance of rain" if max_precip_prob > 50 else "low chance of rain"
+        summary = f"The weather will be generally {temp_desc} with a {precip_desc} (average temp: {avg_temp:.0f}°C)."
+        return {"collected_data": {"weather_summary": summary}}
+    except requests.exceptions.RequestException as e:
+        return {"collected_data": {"weather_summary": f"Weather API error: {e}"}}
+    
+def rag_search_node(state: GraphState) -> dict:
+    """Appelle l'agent RAG avec les intérêts de l'utilisateur."""
+    print("--- NODE: RAG Search ---")
+    interests_summary = state.get('user_profile', {}).get('interests_summary', 'history of the monarchy')
+    # Pour le moment, on utilise le résumé comme une liste d'un seul intérêt
+    rag_results = rag_agent.search_objects(interests=[interests_summary])
+    return {"collected_data": {"rag_results": rag_results}}
+
+def weather_node(state: GraphState) -> dict:
+    """Appelle l'outil météo."""
+    print("--- NODE: Weather ---")
+    return weather_tool(state) # La fonction est déjà un "outil" qui prend l'état
+
+def synthesis_node(state: GraphState) -> dict:
+    """Nœud final qui rassemble les données (pour l'instant, il ne fait que les afficher)."""
+    print("--- NODE: Synthesis ---")
+    print("Données collectées avant la synthèse finale :")
+    print(json.dumps(state.get('collected_data'), indent=2, ensure_ascii=False))
+    # Plus tard, ce nœud appellera le formateur de réponse
+    return {}
+
 # =============================================================================
 # ÉTAPE 4 : ROUTAGE ET ASSEMBLAGE
 # =============================================================================
 
-def decide_next_step(state: GraphState) -> Literal["ask_clarification_question", "END"]:
-    """Décide s'il faut continuer à poser des questions ou si le profil est complet."""
+def decide_next_step(state: GraphState) -> str:
+    """Decides whether to ask for more info or to proceed to data gathering."""
     print("--- ROUTER: Deciding Next Step ---")
-    # La logique ici reste la même : on se base sur la présence de `missing_fields`
     if state.get('user_profile', {}).get('missing_fields'):
         print("   > Decision: Profile incomplete. Asking for clarification.")
-        return "ask_clarification_question"
+        return "clarify"
     else:
-        print("   > Decision: Profile complete. Ready for next phase.")
-        return "END"
+        print("   > Decision: Profile complete. Proceeding to data gathering.")
+        return "gather"
+
+
 
 # --- Assemblage ---
 builder = StateGraph(GraphState)
+
+# Phase 1
 builder.add_node("information_extractor", information_extractor_node)
 builder.add_node("ask_clarification_question", ask_clarification_question_node)
+
+# Phase 2 (Nœuds parallèles)
+builder.add_node("rag_search_node", rag_search_node)
+builder.add_node("weather_node", weather_node)
+
+# Phase 3 (Convergence)
+builder.add_node("synthesis_node", synthesis_node)
+
+# Définition du flux
 builder.set_entry_point("information_extractor")
+
 builder.add_conditional_edges(
     "information_extractor",
     decide_next_step,
-    {"ask_clarification_question": "ask_clarification_question", "END": END}
+    {
+        "clarify": "ask_clarification_question",
+        "gather": ["rag_search_node", "weather_node"]  # Fan-out to both
+    }
 )
 builder.add_edge("ask_clarification_question", "information_extractor")
 
+# Après l'exécution des deux nœuds parallèles, on converge vers le nœud de synthèse
+builder.add_edge(["rag_search_node", "weather_node"], "synthesis_node")
+
+builder.add_edge("synthesis_node", END)
+
 checkpointer = InMemorySaver()
 le_guide_royal = builder.compile(checkpointer=checkpointer)
-print("\n--- Graph with Mistral Agent Wrappers Compiled Successfully ---")
+print("\n--- Graph with Data Gathering Phase Compiled Successfully ---")
 
 
+from IPython.display import Image, display
 
+display(Image(le_guide_royal.get_graph().draw_mermaid_png()))
