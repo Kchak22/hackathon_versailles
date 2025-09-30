@@ -41,7 +41,7 @@ class RAGagent():
                     for object in place["objects"]:
                         object_id = object["object_id"]
                         object_title = object["title"]
-                        content = object["text"]
+                        content = object["text"] + '\n' + '\n'.join(object["important_facts"])
                         chunk = langchain_core.documents.Document(
                                 page_content= content,
                                 metadata={

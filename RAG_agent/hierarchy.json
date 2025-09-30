@@ -1019,6 +1019,404 @@
         ]
       }
     ]
+  },
+
+  "g_trianon":{
+    "group_id": "g_trianon",
+    "title": "Le Domaine de Trianon",
+    "duration_minutes": 75,
+    "subgroups": [
+      {
+        "subgroup_id": "sg_domaine_trianon",
+        "title": "Domaine de Trianon",
+        "places": [
+          {
+            "place_id": "plc_grand_trianon",
+            "title": "Grand Trianon",
+            "objects": [
+              {
+                "object_id": "obj_architecture_mansart_1687",
+                "title": "Architecture et matériaux",
+                "text": "Palais élevé en 1687 par Jules Hardouin-Mansart : façades de marbre rose et de porphyre, vocabulaire fortement italianisant, composition ouverte sur les jardins.",
+                "important_facts": [
+                  "architecte : Jules Hardouin-Mansart",
+                  "datation : 1687",
+                  "marbre rose, porphyre, inspiration italienne"
+                ]
+              },
+              {
+                "object_id": "obj_peristyle_grand_trianon",
+                "title": "Le Péristyle",
+                "text": "Galerie à ciel ouvert traversant le palais et articulant les deux ailes, voulue pour mettre en scène la circulation et les vues sur les parterres.",
+                "important_facts": [
+                  "axe de composition et de circulation",
+                  "mise en scène des perspectives",
+                  "dialogue constant intérieur/jardin"
+                ]
+              },
+              {
+                "object_id": "obj_trianon_sous_bois",
+                "title": "Aile nord dite « Trianon-sous-bois »",
+                "text": "Extension septentrionale formant un ensemble résidentiel, associée aux usages de villégiature et aux séjours de souverains.",
+                "important_facts": [
+                  "aile nord du Grand Trianon",
+                  "vocation résidentielle",
+                  "prolonge la composition d’ensemble"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_petit_trianon",
+            "title": "Petit Trianon",
+            "objects": [
+              {
+                "object_id": "obj_architecture_gabriel_gout_grec",
+                "title": "Architecture « à la grecque »",
+                "text": "Petit château décidé par Louis XV et conçu par Ange-Jacques Gabriel ; un manifeste du goût néoclassique avec un décor sobre et géométrique.",
+                "important_facts": [
+                  "architecte : Ange-Jacques Gabriel",
+                  "commande de Louis XV (milieu XVIIIe)",
+                  "style néoclassique « à la grecque »"
+                ]
+              },
+              {
+                "object_id": "obj_distribution_interieure",
+                "title": "Distribution et usages",
+                "text": "Organisation rationnelle sur rez-de-chaussée et étage, pensée pour l’intimité, la promenade et l’observation directe des jardins.",
+                "important_facts": [
+                  "fonction : retraite intime",
+                  "parcours courts et lumineux",
+                  "relation immédiate aux jardins"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_jardin_anglais",
+            "title": "Jardin anglais",
+            "objects": [
+              {
+                "object_id": "obj_belvedere",
+                "title": "Le Belvédère",
+                "text": "Pavillon pittoresque implanté en bel-védère au bord de l’eau, conçu pour les vues et la musique, dans l’esprit des fabriques de jardin.",
+                "important_facts": [
+                  "architecte : Richard Mique",
+                  "implantation surplombante",
+                  "usage de sociabilité et de divertissement"
+                ]
+              },
+              {
+                "object_id": "obj_temple_amour",
+                "title": "Temple de l’Amour",
+                "text": "Rotonde blanche au milieu des verdures, emblème du jardin paysager de Marie-Antoinette, conçue comme point focal et lieu de contemplation.",
+                "important_facts": [
+                  "architecte : Richard Mique",
+                  "rôle de point focal",
+                  "iconographie amoureuse et pastorale"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_jardin_francais_pt",
+            "title": "Jardin français du Petit Trianon",
+            "objects": [
+              {
+                "object_id": "obj_parterres_fleurs",
+                "title": "Parterres et théâtre de fleurs",
+                "text": "Parterres réguliers, plates-bandes foisonnantes et « théâtre de fleurs » où se déploie une botanique raffinée héritée du règne de Louis XV.",
+                "important_facts": [
+                  "créations majeures entre 1749 et 1753",
+                  "esthétique géométrique à la française",
+                  "valorisation des collections botaniques"
+                ]
+              },
+              {
+                "object_id": "obj_menagerie_dependances",
+                "title": "Ménagerie et dépendances",
+                "text": "Petits édifices de service et espaces techniques intégrés au dessin du jardin, participant à la scénographie horticole.",
+                "important_facts": [
+                  "ensemble fonctionnel et ornemental",
+                  "implantations discrètes",
+                  "complément au Petit Trianon"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_hameau_reine",
+            "title": "Hameau de la Reine",
+            "objects": [
+              {
+                "object_id": "obj_architectures_rurales",
+                "title": "Architectures rurales pittoresques",
+                "text": "Hameau composé de maisons rustiques variées réunies par une unité de style, conçu pour la promenade et l’expérimentation agricole.",
+                "important_facts": [
+                  "programme de Marie-Antoinette (années 1770-1780)",
+                  "unité d’ensemble malgré la variété",
+                  "dimension à la fois ludique et agricole"
+                ]
+              },
+              {
+                "object_id": "obj_mise_en_scene_paysagere",
+                "title": "Mise en scène paysagère",
+                "text": "Parcours autour de la pièce d’eau, cadrant des vues idéales ; le meilleur point de vue se situe en vis-à-vis, de l’autre côté de l’étendue d’eau.",
+                "important_facts": [
+                  "parcours circulaires et perspectives",
+                  "rôle central de la pièce d’eau",
+                  "scénographie de vues « idéales »"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_theatre_reine",
+            "title": "Théâtre de la Reine",
+            "objects": [
+              {
+                "object_id": "obj_salle_cachee_fronde",
+                "title": "Salle discrète et décor",
+                "text": "Bâtiment dissimulé derrière les frondaisons, à la salle richement décorée ; un écrin intime pour les représentations de cour.",
+                "important_facts": [
+                  "implantation volontairement discrète",
+                  "décor précieux à l’échelle réduite",
+                  "fonction de théâtre privé"
+                ]
+              },
+              {
+                "object_id": "obj_scene_machinerie",
+                "title": "Scène et machinerie",
+                "text": "Scène à transformation rapide avec machineries de jeux scéniques ; les toiles d’origine ont été remplacées au XIXe siècle par des copies.",
+                "important_facts": [
+                  "inauguration le 1er juin 1780",
+                  "machineries pour changements rapides",
+                  "décors d’origine perdus/remplacés au XIXe"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "g_parc":{
+    "group_id": "g_parc",
+    "title": "Le Parc",
+    "duration_minutes": 75,
+    "subgroups": [
+      {
+        "subgroup_id": "sg_parc",
+        "title": "Parc",
+        "places": [
+          {
+            "place_id": "plc_grand_canal",
+            "title": "Grand Canal",
+            "objects": [
+              {
+                "object_id": "obj_plan_eau_axial",
+                "title": "Plan d’eau axial",
+                "text": "Vaste canal qui prolonge naturellement les jardins et en étire les perspectives au-delà du parterre.",
+                "important_facts": [
+                  "prolonge l’allée royale",
+                  "fait partie des grandes pièces d’eau du domaine",
+                  "structure l’axe paysager du Parc"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_piece_eau_suisses",
+            "title": "Pièce d’eau des Suisses",
+            "objects": [
+              {
+                "object_id": "obj_grande_piece_eau_sud",
+                "title": "Grande pièce d’eau",
+                "text": "Étendue d’eau majeure du Parc, en relation directe avec les perspectives des jardins.",
+                "important_facts": [
+                  "constitue, avec le Grand Canal, l’un des deux grands plans d’eau",
+                  "inscrite dans la composition d’ensemble du domaine",
+                  "participe aux vues lointaines sur le château"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_allees_parc",
+            "title": "Allées du Parc",
+            "objects": [
+              {
+                "object_id": "obj_traces_rectilignes",
+                "title": "Tracé rectiligne des allées",
+                "text": "Grand réseau d’allées rectilignes qui compartimente bois et champs et prolonge les axes des jardins.",
+                "important_facts": [
+                  "délimitent espaces boisés et espaces cultivés",
+                  "prolongent les perspectives du jardin",
+                  "maintiennent le château dans un écrin de verdure"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_grille_etoile_royale",
+            "title": "Grille de l’Étoile Royale (accès)",
+            "objects": [
+              {
+                "object_id": "obj_acces_pieton_velo",
+                "title": "Accès piéton et vélo",
+                "text": "Point d’entrée du Parc permettant une traversée douce du domaine.",
+                "important_facts": [
+                  "ouvert tous les jours",
+                  "plage horaire : 7h–19h",
+                  "accès dédié piétons/vélos"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "g_ecuries":{
+    "group_id": "g_ecuries",
+    "title": "Les Écuries du Roi",
+    "duration_minutes": 60,
+    "subgroups": [
+      {
+        "subgroup_id": "sg_grande_ecurie",
+        "title": "Grande Écurie du Roi",
+        "places": [
+          {
+            "place_id": "plc_batiment_grande_ecurie",
+            "title": "Bâtiment de la Grande Écurie",
+            "objects": [
+              {
+                "object_id": "obj_architecture_mansart_grande",
+                "title": "Architecture et implantation",
+                "text": "Grand ensemble édifié face au Château pour loger chevaux et services de la Maison du Roi ; composition symétrique sur la place d’Armes, articulation avec les avenues et les jardins.",
+                "important_facts": [
+                  "architecte : Jules Hardouin-Mansart",
+                  "datation : fin XVIIe siècle",
+                  "différenciation par l’affectation (et non la taille)"
+                ]
+              },
+              {
+                "object_id": "obj_cours_manege_grande",
+                "title": "Cours et manèges",
+                "text": "Organisation fonctionnelle autour de cours et de manèges destinés à l’entraînement et aux démonstrations équestres.",
+                "important_facts": [
+                  "circulations adaptées aux chevaux et attelages",
+                  "espaces dédiés aux exercices équestres",
+                  "lien visuel direct avec la place d’Armes"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_galerie_carrosses",
+            "title": "Galerie des Carrosses",
+            "objects": [
+              {
+                "object_id": "obj_collection_vehicules_ceremonie",
+                "title": "Collection de véhicules de cérémonie",
+                "text": "Présentation des grands carrosses, berlines et traîneaux royaux, témoins du faste des entrées, mariages et funérailles d’Ancien Régime.",
+                "important_facts": [
+                  "exposition permanente dans la Grande Écurie",
+                  "pièces majeures d’apparat",
+                  "mémoire des cérémonies de cour"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_academie_equestre",
+            "title": "Académie équestre de Versailles",
+            "objects": [
+              {
+                "object_id": "obj_manege_spectacle",
+                "title": "Manège et spectacle équestre",
+                "text": "Lieu de création et de représentation mêlant haute école, musique et arts, dans l’esprit des traditions équestres de Versailles.",
+                "important_facts": [
+                  "spectacles réguliers dans le manège",
+                  "transmission des arts équestres",
+                  "ancrage dans l’ancienne fonction des Écuries"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_campus_versailles",
+            "title": "Campus Versailles",
+            "objects": [
+              {
+                "object_id": "obj_metiers_patrimoine",
+                "title": "Métiers d’art et du patrimoine",
+                "text": "Pôle installé dans les Écuries, dédié aux formations et collaborations autour des savoir-faire du patrimoine et du spectacle.",
+                "important_facts": [
+                  "implanté dans les espaces historiques",
+                  "favorise transmission et innovation",
+                  "ouvert aux publics et aux partenariats"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subgroup_id": "sg_petite_ecurie",
+        "title": "Petite Écurie du Roi",
+        "places": [
+          {
+            "place_id": "plc_batiment_petite_ecurie",
+            "title": "Bâtiment de la Petite Écurie",
+            "objects": [
+              {
+                "object_id": "obj_architecture_mansart_petite",
+                "title": "Architecture et symétrie",
+                "text": "Édifice jumeau de la Grande Écurie, situé en vis-à-vis sur la place d’Armes ; mêmes principes d’ordonnance et d’échelle, vocation originelle distincte.",
+                "important_facts": [
+                  "architecte : Jules Hardouin-Mansart",
+                  "datation : fin XVIIe siècle",
+                  "symétrie avec la Grande Écurie"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_galerie_sculptures_moulages",
+            "title": "Galerie des Sculptures et des Moulages",
+            "objects": [
+              {
+                "object_id": "obj_moulages_antique",
+                "title": "Moulages d’après l’Antique",
+                "text": "Ensemble de plâtres pédagogiques et d’étude d’après chefs-d’œuvre grecs et romains, complété par un fonds d’architecture antique.",
+                "important_facts": [
+                  "collection de référence pour l’enseignement",
+                  "iconographie gréco-romaine (statuaire et éléments architecturaux)",
+                  "présentation dans les anciens volumes des Écuries"
+                ]
+              }
+            ]
+          },
+          {
+            "place_id": "plc_institutions_hebergees",
+            "title": "Institutions hébergées",
+            "objects": [
+              {
+                "object_id": "obj_ecole_archi_crm",
+                "title": "École et centre de recherche",
+                "text": "Accueil d’écoles et de services liés au patrimoine et aux musées, prolongeant la réutilisation culturelle des Écuries.",
+                "important_facts": [
+                  "réaffectation contemporaine des espaces",
+                  "activités d’étude, conservation et formation",
+                  "mise en valeur d’un patrimoine en usage"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 }
 
