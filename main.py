@@ -229,6 +229,13 @@ le_guide_royal = builder.compile(checkpointer=checkpointer)
 print("\n--- Graph with Data Gathering Phase Compiled Successfully ---")
 
 
-from IPython.display import Image, display
+if __name__ == "__main__":
+    try:
+        from IPython.display import Image, display
+        display(Image(le_guide_royal.get_graph().draw_mermaid_png()))
+    except Exception:
+        pass
 
-display(Image(le_guide_royal.get_graph().draw_mermaid_png()))
+
+
+

@@ -12,7 +12,7 @@ class RAGagent():
         """
         Initialize the embedding model and load the hierarchical infos (group - subgroup - place - object)
         """
-        self.embedding_model_name : str = "sentence-transformers/all-MiniLM-L6-v2"
+        self.embedding_model_name : str = "sentence-transformers/all-MiniLM-L12-v2"
         self.embedding_model = HuggingFaceEmbeddings(
             model_name=self.embedding_model_name,
             encode_kwargs={'normalize_embeddings': True}
@@ -74,7 +74,7 @@ class RAGagent():
             - interests (list[str]): a list of the user interests.
             - k : the number of pertinent objects to return for a given interest.
         """
-        faiss_path = "checkpoints/faiss_index"
+        faiss_path = os.path.join("checkpoints", "faiss_index")
         faiss_store = FAISS.load_local(faiss_path, self.embedding_model, allow_dangerous_deserialization=True)
 
         res = {}
