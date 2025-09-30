@@ -888,18 +888,32 @@ def synthesis_node(state: GraphState) -> dict:
 # ÉTAPE 4 : ROUTAGE ET ASSEMBLAGE
 # =============================================================================
 
-def decide_next_step(state: GraphState) -> Union[str, list[Send]]:
-    """Decides whether to ask for more info or to fan-out to data gathering tools."""
+from langgraph.types import Send
+
+ONE_SHOT = True
+def decide_next_step(state: GraphState, config: dict | None = None):
+    """Route toujours vers la collecte si ONE_SHOT est actif."""
     print("--- ROUTER: Deciding Next Step ---")
-    if  state.get('user_profile', {}).get('missing_fields') and state.get('question_attempts', 0) < 3:
-        print("   > Decision: Profile incomplete. Asking for clarification.")
-        return "ask_clarification_question"
-    else:
-        print("   > Decision: Profile complete. Fanning out to data gathering tools.")
+    cfg = (config or {}).get("configurable", {})
+    force_one_shot = cfg.get("one_shot", False) or ONE_SHOT
+
+    if force_one_shot:
+        print("   > ONE_SHOT actif. Fan-out direct vers rag_search_node + weather_node.")
         return [
             Send("rag_search_node", state),
             Send("weather_node", state)
         ]
+
+    if state.get('user_profile', {}).get('missing_fields') and state.get('question_attempts', 0) < 3:
+        print("   > Profile incomplet. Clarification.")
+        return "ask_clarification_question"
+    else:
+        print("   > Profile complet. Fan-out gather.")
+        return [
+            Send("rag_search_node", state),
+            Send("weather_node", state)
+        ]
+
 
 
 
@@ -955,4 +969,127 @@ print("\n--- Graph with Data Gathering Phase Compiled Successfully ---")
 
 # display(Image(le_guide_royal.get_graph().draw_mermaid_png()))
 
+def format_itinerary_to_text(itinerary: dict) -> str:
+    """Transforme l'itinéraire (dict) en réponse naturelle en français."""
+    if not itinerary or "itinerary" not in itinerary:
+        return "Voici quelques recommandations de visite à Versailles en fonction de vos intérêts."
+
+    slots = itinerary.get("itinerary", [])
+    summary = itinerary.get("summary", {})
+
+    lines = []
+    if summary:
+        total = summary.get("total_duration_minutes")
+        weather = summary.get("weather_consideration", "")
+        if total:
+            lines.append(f"💡 Itinéraire proposé (~{total} minutes).")
+        if weather:
+            lines.append(f"🌦️ Météo : {weather}")
+
+    for slot in slots:
+        time_slot = slot.get("time_slot", "")
+        group = slot.get("group", {}).get("title", "")
+        subgroup = slot.get("subgroup", {}).get("title", "")
+        lines.append(f"\n⏱️ {time_slot} — {group} › {subgroup}")
+
+        for p in slot.get("places", []):
+            place = p.get("place", {}).get("title", "Lieu")
+            dur = p.get("suggested_duration_minutes", 30)
+            highlights = p.get("highlights", [])
+            hl = ", ".join(o.get("title", "") for o in highlights[:3]) if highlights else ""
+            if hl:
+                lines.append(f"  • {place} (~{dur} min) — à voir : {hl}")
+            else:
+                lines.append(f"  • {place} (~{dur} min)")
+
+    if not lines:
+        return "Je vous recommande de commencer par les Grands Appartements, puis la Galerie des Glaces, et de terminer par les Jardins si le temps le permet."
+
+    return "\n".join(lines)
+
+
+
+# ======================= API FASTAPI (À COLLER EN BAS) =======================
+from typing import Any, Dict, List, Optional
+import uuid
+
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
+from langchain_core.messages import HumanMessage
+
+# ---- App FastAPI ----
+app = FastAPI(title="Versailles Planner API", version="2.0.0")
+
+# CORS large pour tests – à restreindre en prod
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],           # remplace par tes domaines front en prod
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ---- Schémas E/S ----
+class ChatRequest(BaseModel):
+    message: str = Field(..., min_length=1, description="Message utilisateur")
+    session_id: Optional[str] = Field(None, description="Identifiant de session (conserve le contexte)")
+
+class ChatResponse(BaseModel):
+    session_id: str
+    user_profile: Dict[str, Any] = {}
+    collected_data: Dict[str, Any] = {}
+    assistant_message: Optional[str] = None
+
+class SearchRAGRequest(BaseModel):
+    interests: List[str] = Field(..., min_items=1)
+    k: int = Field(5, ge=1, le=50)
+
+class ResetSessionRequest(BaseModel):
+    session_id: str
+
+# ---- Endpoints ----
+@app.get("/health")
+def health() -> Dict[str, str]:
+    return {"status": "ok"}
+
+# ---- Nouveau schéma pour coller aux consignes d’évaluation ----
+class EvalChatRequest(BaseModel):
+    question: str = Field(..., description="Question du visiteur")
+
+class EvalChatResponse(BaseModel):
+    answer: str = Field(..., description="Réponse complète du chatbot")
+
+@app.post("/chat", response_model=EvalChatResponse)
+def chat(req: EvalChatRequest):
+    if "le_guide_royal" not in globals():
+        raise HTTPException(status_code=500, detail="Graph not compiled")
+
+    session_id = str(uuid.uuid4())
+    initial_state = {
+        "messages": [HumanMessage(content=req.question)],
+        "user_profile": {},
+        "question_attempts": 0,
+        "collected_data": {},
+    }
+    # 👉 on force le one-shot aussi au runtime (en plus du flag global)
+    run_config = {"configurable": {"session_id": session_id, "one_shot": True}}
+
+    try:
+        final_state = le_guide_royal.invoke(initial_state, config=run_config)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Graph error: {e}")
+
+    # 1) on ignore volontairement les clarifications (one-shot)
+    # 2) on formate un texte de réponse à partir de l'itinéraire
+    itinerary = final_state.get("collected_data", {}).get("itinerary")
+    if itinerary:
+        answer_text = format_itinerary_to_text(itinerary)
+    else:
+        # fallback : dernier message IA si vraiment rien
+        msgs = final_state.get("messages", [])
+        last_ai = next((m for m in reversed(msgs) if getattr(m, "type", None) == "ai"), None)
+        answer_text = last_ai.content if last_ai else "Voici une proposition de parcours à Versailles : commencez par les Grands Appartements, puis la Galerie des Glaces, et terminez par les Jardins si la météo le permet."
+
+    return {"answer": answer_text}
 
