@@ -122,76 +122,143 @@ class GraphState(TypedDict):
 def information_extractor_node(state: GraphState, config: RunnableConfig) -> dict:
     """
     Ce nœud appelle l'Agent Mistral AGENT_ID_1 pour extraire les informations.
-    Il utilise maintenant l'historique de conversation complet.
     """
     print("--- NODE: Information Extractor (calling Mistral Agent API) ---")
     
-    # 1. Récupérer le session_id depuis la configuration
+    # 1. Récupérer le session_id
     session_id = config["configurable"]["session_id"]
     
     # 2. Récupérer l'historique de la conversation
     chat_history = get_chat_history(session_id)
     
-    # 3. Le dernier message de l'utilisateur est dans l'état actuel
+    # 3. Le dernier message de l'utilisateur
     last_user_message = state['messages'][-1]
     
-    # 4. Préparer l'entrée pour l'agent avec l'historique COMPLET
-    # L'agent a besoin de tout le contexte pour comprendre la dernière réponse
+    # 4. Préparer l'entrée avec l'historique COMPLET
     messages_for_agent = list(chat_history.messages) + [last_user_message]
     
-    # On convertit les messages au format attendu par client.beta.conversations.start
     role_map = {"human": "user", "ai": "assistant"}
     inputs_for_agent = [
-        {"role": role_map.get(msg.type, "user"), "content": msg.content} 
+        {"role": role_map.get(msg.type, "user"), "content": msg.content}
         for msg in messages_for_agent
     ]
-
+    
     try:
         resp = client.beta.conversations.start(
             agent_id=AGENT_ID_EXTRACTOR,
-            inputs=inputs_for_agent, # Utiliser l'historique complet
+            inputs=inputs_for_agent,
             store=False
         )
         
         text_response = resp.outputs[0].content if resp.outputs else ""
-        extracted_data = json.loads(text_response)
-        print(f"   > Profile data extracted by Agent 1: {extracted_data}")
         
-        # 5. Mettre à jour l'historique avec le dernier message utilisateur
-        # L'IA n'a pas répondu directement, donc on ajoute juste le message utilisateur.
+        # IMPORTANT : Vérifier que la réponse n'est pas vide
+        if not text_response or text_response.strip() == "":
+            print(" > WARNING: Agent returned empty response")
+            # Conserver le profil existant si disponible
+            current_profile = state.get('user_profile', {})
+            if current_profile:
+                print(" > Keeping existing profile")
+                return {"user_profile": current_profile}
+            else:
+                return {"user_profile": {"missing_fields": ["all"]}}
+        
+        # Parser le JSON
+        try:
+            extracted_data = json.loads(text_response)
+        except json.JSONDecodeError as e:
+            print(f" > JSON parsing error: {e}")
+            print(f" > Response was: {text_response[:200]}...")
+            
+            # Essayer d'extraire un JSON avec regex
+            import re
+            json_match = re.search(r'\{.*\}', text_response, re.DOTALL)
+            if json_match:
+                try:
+                    extracted_data = json.loads(json_match.group(0))
+                except:
+                    print(" > Failed to extract JSON with regex")
+                    current_profile = state.get('user_profile', {})
+                    return {"user_profile": current_profile or {"missing_fields": ["all"]}}
+            else:
+                current_profile = state.get('user_profile', {})
+                return {"user_profile": current_profile or {"missing_fields": ["all"]}}
+        
+        # FUSION DES DONNÉES : ne pas perdre les infos déjà collectées
+        current_profile = state.get('user_profile', {})
+        
+        # Fusionner intelligemment : garder les valeurs non-None du profil actuel
+        merged_profile = {}
+        
+        for key in set(list(current_profile.keys()) + list(extracted_data.keys())):
+            current_val = current_profile.get(key)
+            new_val = extracted_data.get(key)
+            
+            # Priorité : nouvelle valeur SI elle n'est pas None/vide
+            if new_val is not None and new_val != '' and new_val != []:
+                merged_profile[key] = new_val
+            elif current_val is not None:
+                merged_profile[key] = current_val
+        
+        print(f" > Profile data extracted by Agent 1: {merged_profile}")
+        
+        # 5. Mettre à jour l'historique
         chat_history.add_message(last_user_message)
         
-        return {"user_profile": extracted_data}
+        return {"user_profile": merged_profile}
         
     except Exception as e:
-        print(f"   > Error calling Mistral Agent 1: {e}")
-        return {"user_profile": {"missing_fields": ["all"]}}
-
-
+        print(f" > Error calling Mistral Agent 1: {e}")
+        import traceback
+        traceback.print_exc()
+        
+        # En cas d'erreur, conserver le profil existant
+        current_profile = state.get('user_profile', {})
+        return {"user_profile": current_profile or {"missing_fields": ["all"]}}
 
 def ask_clarification_question_node(state: GraphState, config: RunnableConfig) -> dict:
     """
-    Ce nœud appelle l'Agent Mistral AGENT_ID_2 pour générer une question
-    et la sauvegarde dans l'historique.
+    Ce nœud appelle l'Agent Mistral AGENT_ID_2 pour générer une question.
     """
     print("--- NODE: Clarification Question (calling Mistral Agent API) ---")
     
-    # 1. Récupérer le session_id
     session_id = config["configurable"]["session_id"]
     chat_history = get_chat_history(session_id)
     
     profile = state.get('user_profile', {})
+    missing_fields = profile.get('missing_fields', [])
+    
+    # IMPORTANT : Limiter à 1-2 champs à la fois
+    # Prioriser les champs critiques
+    priority_order = [
+        'visit_date',
+        'time_window.start', 
+        'time_window.end',
+        'interests',
+        'party.adults_count',
+        'party.children_count'
+    ]
+    
+    # Ne demander que les 2 premiers champs manquants prioritaires
+    critical_missing = [f for f in priority_order if f in missing_fields][:2]
+    
+    if not critical_missing:
+        critical_missing = missing_fields[:2]  # Fallback
     
     input_for_agent_2 = {
-        "language": profile.get('language'),
-        "fields_to_ask": profile.get('missing_fields', []),
-        "interests": profile.get('interests'),
-        "constraints": profile.get('constraints'),
-        "meals_services": profile.get('meals_services'),
-        "tickets_logistics": profile.get('tickets_logistics'),
-        "time_window": profile.get('time_window'),
+        "language": profile.get('language', 'fr'),
+        "fields_to_ask": critical_missing,  # Limiter à 2 champs max
+        "current_profile": {
+            "interests": profile.get('interests'),
+            "time_window": profile.get('time_window'),
+            "visit_date": profile.get('visit_date'),
+        },
+        "question_number": state.get('question_attempts', 0) + 1
     }
-    input_str = json.dumps(input_for_agent_2)
+    
+    input_str = json.dumps(input_for_agent_2, ensure_ascii=False)
+    
+    print(f" > Asking about: {critical_missing}")
     
     try:
         resp_2 = client.beta.conversations.start(
@@ -199,24 +266,29 @@ def ask_clarification_question_node(state: GraphState, config: RunnableConfig) -
             inputs=[{"role": "user", "content": input_str}],
             store=False
         )
+        
         question_text = resp_2.outputs[0].content if resp_2.outputs else "Désolé, je ne sais pas quoi demander."
         
-        # 2. Créer un message IA et le sauvegarder dans l'historique
         ai_question_message = AIMessage(content=question_text)
         chat_history.add_message(ai_question_message)
         
-        print(f"   > Question generated by Agent 2: {question_text}")
+        print(f" > Question generated by Agent 2: {question_text}")
         
         return {
             "messages": [ai_question_message],
             "question_attempts": state.get('question_attempts', 0) + 1
         }
+        
     except Exception as e:
-        # Gérer l'erreur et sauvegarder aussi le message d'erreur
-        error_message = AIMessage(content="J'ai un problème. Pourriez-vous reformuler ?")
+        error_message = AIMessage(content="J'ai un problème. Pourriez-vous me donner plus de détails sur votre visite ?")
         chat_history.add_message(error_message)
-        print(f"   > Error calling Mistral Agent 2: {e}")
-        return {"messages": [error_message]}
+        print(f" > Error calling Mistral Agent 2: {e}")
+        
+        return {
+            "messages": [error_message],
+            "question_attempts": state.get('question_attempts', 0) + 1
+        }
+    
 
 # --- Agent Météo (Amélioré) ---
 def weather_tool(state: GraphState) -> dict:
@@ -245,27 +317,39 @@ def rag_search_node(state: GraphState) -> dict:
     profile = state.get('user_profile', {})
     interests_dict = profile.get('interests', {})
     
-    # --- CORRECTION : Filtrer les intérêts pour ne garder que ceux > 0 ---
-    # On transforme le dictionnaire d'intérêts en une liste de noms d'intérêts.
-    active_interests = [interest for interest, score in interests_dict.items() if isinstance(score, (int, float)) and score > 0]
+    # Filtrer les intérêts > 0
+    active_interests = [
+        interest for interest, score in interests_dict.items()
+        if isinstance(score, (int, float)) and score > 0
+    ]
     
-    # Si après filtrage il n'y a plus d'intérêts, utiliser une valeur par défaut.
+    # FALLBACK : Si aucun intérêt, utiliser des valeurs génériques
     if not active_interests:
-        print("   > No active interests found, using default query")
-        active_interests = ["histoire générale", "architecture"] # Utilisez des termes plus génériques
-    # --- FIN DE LA CORRECTION ---
+        print(" > No active interests found, using generic defaults")
+        active_interests = [
+            "palace_state_apartments",
+            "palace_hall_of_mirrors", 
+            "gardens_general"
+        ]
     
-    print(f"   > Searching for active interests: {active_interests}")
+    print(f" > Searching for active interests: {active_interests}")
     
-    # Appeler l'agent RAG avec la liste de chaînes de caractères
-    rag_results = rag_agent.search_objects(interests=active_interests, k=5)
-    
-    print(f"   > Found {len(rag_results)} interest categories")
-    for interest, objects in rag_results.items():
-        print(f"     - {interest}: {len(objects)} objects")
-    
-    # Retourner les résultats pour la fusion
-    return {"collected_data": {"rag_results": rag_results}}
+    try:
+        rag_results = rag_agent.search_objects(interests=active_interests, k=5)
+        print(f" > Found {len(rag_results)} interest categories")
+        
+        for interest, objects in rag_results.items():
+            print(f"   - {interest}: {len(objects)} objects")
+        
+        return {"collected_data": {"rag_results": rag_results}}
+        
+    except Exception as e:
+        print(f" > Error in RAG search: {e}")
+        import traceback
+        traceback.print_exc()
+        
+        # Retourner un résultat vide plutôt que de crasher
+        return {"collected_data": {"rag_results": {}}}
 
 def weather_node(state: GraphState) -> dict:
     """Appelle l'outil météo."""
@@ -876,6 +960,91 @@ def planning_node(state: GraphState) -> dict:
         return {"collected_data": {"itinerary": {"error": f"Planning failed: {str(e)}"}}}
 
 
+
+# Après la configuration des autres agents
+AGENT_ID_NARRATOR = os.getenv("MISTRAL_AGENT_ID_NARRATOR")
+if not AGENT_ID_NARRATOR:
+    raise ValueError("Please set MISTRAL_AGENT_ID_NARRATOR in your .env file.")
+
+def narrator_node(state: GraphState, config: RunnableConfig) -> dict:
+    """
+    Nœud qui appelle l'agent narrateur Mistral pour générer un récit structuré.
+    
+    Prend en entrée l'itinéraire du planning agent et génère un JSON avec:
+    - title: Titre du parcours narratif
+    - accessOverview: Liste des lieux principaux
+    - itineraryDurationMinutes: Durée totale
+    - steps: Liste d'étapes avec texte narratif
+    """
+    print("--- NODE: Narrator (generating narrative guide) ---")
+    
+    # Récupérer l'itinéraire du planning agent
+    collected_data = state.get('collected_data', {})
+    itinerary = collected_data.get('itinerary', {})
+    
+    if not itinerary or itinerary.get("error"):
+        print(" > No valid itinerary to narrate")
+        return {
+            "collected_data": {
+                **collected_data,
+                "narrative": {"error": "No itinerary available for narration"}
+            }
+        }
+    
+    # Préparer l'input pour l'agent narrateur
+    # L'agent attend le JSON complet de l'itinéraire
+    input_for_narrator = json.dumps(itinerary, ensure_ascii=False)
+    
+    try:
+        # Appel à l'agent narrateur via l'API Mistral
+        resp_narrator = client.beta.conversations.start(
+            agent_id=AGENT_ID_NARRATOR,
+            inputs=[{"role": "user", "content": input_for_narrator}],
+            store=False
+        )
+        
+        narrative_text = resp_narrator.outputs[0].content if resp_narrator.outputs else "{}"
+        
+        # Parser le JSON de la réponse
+        try:
+            narrative_data = json.loads(narrative_text)
+            print(f" > Narrative generated successfully")
+            print(f"   - Title: {narrative_data.get('title', 'N/A')}")
+            print(f"   - Steps: {len(narrative_data.get('steps', []))}")
+            
+        except json.JSONDecodeError as e:
+            print(f" > Warning: Narrator response is not valid JSON: {e}")
+            # Fallback: essayer d'extraire un JSON avec regex
+            import re
+            json_match = re.search(r'\{.*\}', narrative_text, re.DOTALL)
+            if json_match:
+                narrative_data = json.loads(json_match.group(0))
+            else:
+                narrative_data = {
+                    "error": "Invalid JSON from narrator",
+                    "raw_response": narrative_text
+                }
+        
+        # Mettre à jour collected_data avec le récit
+        updated_collected_data = collected_data.copy()
+        updated_collected_data['narrative'] = narrative_data
+        
+        return {"collected_data": updated_collected_data}
+        
+    except Exception as e:
+        print(f" > Error calling Narrator Agent: {e}")
+        import traceback
+        traceback.print_exc()
+        
+        return {
+            "collected_data": {
+                **collected_data,
+                "narrative": {
+                    "error": f"Narrator failed: {str(e)}"
+                }
+            }
+        }
+
 def synthesis_node(state: GraphState) -> dict:
     """Nœud final qui rassemble les données (pour l'instant, il ne fait que les afficher)."""
     print("--- NODE: Synthesis ---")
@@ -888,31 +1057,13 @@ def synthesis_node(state: GraphState) -> dict:
 # ÉTAPE 4 : ROUTAGE ET ASSEMBLAGE
 # =============================================================================
 
-from langgraph.types import Send
-
-ONE_SHOT = True
-def decide_next_step(state: GraphState, config: dict | None = None):
-    """Route toujours vers la collecte si ONE_SHOT est actif."""
-    print("--- ROUTER: Deciding Next Step ---")
-    cfg = (config or {}).get("configurable", {})
-    force_one_shot = cfg.get("one_shot", False) or ONE_SHOT
-
-    if force_one_shot:
-        print("   > ONE_SHOT actif. Fan-out direct vers rag_search_node + weather_node.")
-        return [
-            Send("rag_search_node", state),
-            Send("weather_node", state)
-        ]
-
-    if state.get('user_profile', {}).get('missing_fields') and state.get('question_attempts', 0) < 3:
-        print("   > Profile incomplet. Clarification.")
-        return "ask_clarification_question"
-    else:
-        print("   > Profile complet. Fan-out gather.")
-        return [
-            Send("rag_search_node", state),
-            Send("weather_node", state)
-        ]
+def decide_next_step(state: GraphState) -> list[Send]:
+    """Mode ONE-SHOT : envoie toujours directement vers la collecte (RAG + météo)."""
+    print("--- ROUTER: ONE-SHOT mode ---")
+    return [
+        Send("rag_search_node", state),
+        Send("weather_node", state)
+    ]
 
 
 
@@ -921,97 +1072,57 @@ def decide_next_step(state: GraphState, config: dict | None = None):
 # Update your graph builder:
 builder = StateGraph(GraphState)
 
-# Phase 1
+# Remplacer la section de construction du graph
 
+# Phase 1: Extraction & Clarification
 builder.add_node("information_extractor", information_extractor_node)
 builder.add_node("ask_clarification_question", ask_clarification_question_node)
 
-# Phase 2 (Nœuds parallèles)
+# Phase 2: Collecte de données (parallèle)
 builder.add_node("rag_search_node", rag_search_node)
 builder.add_node("weather_node", weather_node)
 
-# Phase 3 (Planning)
+# Phase 3: Planification
 builder.add_node("planning_node", planning_node)
 
-# Phase 4 (Synthesis)
-builder.add_node("synthesis_node", synthesis_node)
+# Phase 4: Narration (remplace synthesis_node)
+builder.add_node("narrator_node", narrator_node)
 
 # Entry point
 builder.set_entry_point("information_extractor")
-#builder.add_edge(START, information_extractor_node)
 
 # Conditional routing from extractor
 builder.add_conditional_edges(
     "information_extractor",
     decide_next_step,
-    # No path_map needed when using Send
 )
-
-# Loop back for clarificationx
-#builder.add_edge("ask_clarification_question", "information_extractor")
 
 # After parallel nodes, converge to planning
 builder.add_edge("rag_search_node", "planning_node")
 builder.add_edge("weather_node", "planning_node")
 
-# After planning, go to synthesis
-builder.add_edge("planning_node", "synthesis_node")
+# After planning, go to narrator
+builder.add_edge("planning_node", "narrator_node")
 
-# End
-builder.add_edge("synthesis_node", END)
- 
-#checkpointer = InMemorySaver()
+# End after narrator
+builder.add_edge("narrator_node", END)
+
 le_guide_royal = builder.compile()
-print("\n--- Graph with Data Gathering Phase Compiled Successfully ---")
+print("\n--- Graph with Narrator Agent Compiled Successfully ---")
+#checkpointer = InMemorySaver()
 
 
-# from IPython.display import Image, display
+#from IPython.display import Image, display
 
-# display(Image(le_guide_royal.get_graph().draw_mermaid_png()))
+#display(Image(le_guide_royal.get_graph().draw_mermaid_png()))
 
-def format_itinerary_to_text(itinerary: dict) -> str:
-    """Transforme l'itinéraire (dict) en réponse naturelle en français."""
-    if not itinerary or "itinerary" not in itinerary:
-        return "Voici quelques recommandations de visite à Versailles en fonction de vos intérêts."
-
-    slots = itinerary.get("itinerary", [])
-    summary = itinerary.get("summary", {})
-
-    lines = []
-    if summary:
-        total = summary.get("total_duration_minutes")
-        weather = summary.get("weather_consideration", "")
-        if total:
-            lines.append(f"💡 Itinéraire proposé (~{total} minutes).")
-        if weather:
-            lines.append(f"🌦️ Météo : {weather}")
-
-    for slot in slots:
-        time_slot = slot.get("time_slot", "")
-        group = slot.get("group", {}).get("title", "")
-        subgroup = slot.get("subgroup", {}).get("title", "")
-        lines.append(f"\n⏱️ {time_slot} — {group} › {subgroup}")
-
-        for p in slot.get("places", []):
-            place = p.get("place", {}).get("title", "Lieu")
-            dur = p.get("suggested_duration_minutes", 30)
-            highlights = p.get("highlights", [])
-            hl = ", ".join(o.get("title", "") for o in highlights[:3]) if highlights else ""
-            if hl:
-                lines.append(f"  • {place} (~{dur} min) — à voir : {hl}")
-            else:
-                lines.append(f"  • {place} (~{dur} min)")
-
-    if not lines:
-        return "Je vous recommande de commencer par les Grands Appartements, puis la Galerie des Glaces, et de terminer par les Jardins si le temps le permet."
-
-    return "\n".join(lines)
 
 
 
 # ======================= API FASTAPI (À COLLER EN BAS) =======================
 from typing import Any, Dict, List, Optional
 import uuid
+import json
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -1024,7 +1135,7 @@ app = FastAPI(title="Versailles Planner API", version="2.0.0")
 # CORS large pour tests – à restreindre en prod
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],           # remplace par tes domaines front en prod
+    allow_origins=["*"],  # remplace par tes domaines front en prod
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -1033,7 +1144,10 @@ app.add_middleware(
 # ---- Schémas E/S ----
 class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, description="Message utilisateur")
-    session_id: Optional[str] = Field(None, description="Identifiant de session (conserve le contexte)")
+    session_id: Optional[str] = Field(
+        None, description="Identifiant de session (conserve le contexte)"
+    )
+
 
 class ChatResponse(BaseModel):
     session_id: str
@@ -1041,27 +1155,38 @@ class ChatResponse(BaseModel):
     collected_data: Dict[str, Any] = {}
     assistant_message: Optional[str] = None
 
+
 class SearchRAGRequest(BaseModel):
     interests: List[str] = Field(..., min_items=1)
     k: int = Field(5, ge=1, le=50)
 
+
 class ResetSessionRequest(BaseModel):
     session_id: str
+
 
 # ---- Endpoints ----
 @app.get("/health")
 def health() -> Dict[str, str]:
     return {"status": "ok"}
 
+
 # ---- Nouveau schéma pour coller aux consignes d’évaluation ----
 class EvalChatRequest(BaseModel):
     question: str = Field(..., description="Question du visiteur")
 
+
 class EvalChatResponse(BaseModel):
     answer: str = Field(..., description="Réponse complète du chatbot")
 
+
 @app.post("/chat", response_model=EvalChatResponse)
 def chat(req: EvalChatRequest):
+    """
+    Endpoint unique d'évaluation :
+    - Reçoit {"question": "..."}
+    - Retourne {"answer": "..."} avec une réponse textuelle formatée
+    """
     if "le_guide_royal" not in globals():
         raise HTTPException(status_code=500, detail="Graph not compiled")
 
@@ -1072,24 +1197,64 @@ def chat(req: EvalChatRequest):
         "question_attempts": 0,
         "collected_data": {},
     }
-    # 👉 on force le one-shot aussi au runtime (en plus du flag global)
-    run_config = {"configurable": {"session_id": session_id, "one_shot": True}}
+    run_config = {"configurable": {"session_id": session_id}}
 
     try:
         final_state = le_guide_royal.invoke(initial_state, config=run_config)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Graph error: {e}")
 
-    # 1) on ignore volontairement les clarifications (one-shot)
-    # 2) on formate un texte de réponse à partir de l'itinéraire
-    itinerary = final_state.get("collected_data", {}).get("itinerary")
-    if itinerary:
-        answer_text = format_itinerary_to_text(itinerary)
-    else:
-        # fallback : dernier message IA si vraiment rien
-        msgs = final_state.get("messages", [])
-        last_ai = next((m for m in reversed(msgs) if getattr(m, "type", None) == "ai"), None)
-        answer_text = last_ai.content if last_ai else "Voici une proposition de parcours à Versailles : commencez par les Grands Appartements, puis la Galerie des Glaces, et terminez par les Jardins si la météo le permet."
+    answer_text = None
+
+    # 1. Si l'agent IA a déjà produit un texte direct
+    msgs = final_state.get("messages", [])
+    last_ai = next(
+        (m for m in reversed(msgs) if getattr(m, "type", None) == "ai"), None
+    )
+    if last_ai:
+        answer_text = last_ai.content
+
+    # 2. Sinon, on construit une narration textuelle à partir de l'itinéraire
+    if not answer_text:
+        itinerary = final_state.get("collected_data", {}).get("itinerary")
+        if itinerary:
+            lines = []
+            summary = itinerary.get("summary", {})
+            slots = itinerary.get("itinerary", [])
+
+            # Ajout d'une intro
+            if summary:
+                total = summary.get("total_duration_minutes")
+                weather = summary.get("weather_consideration", "")
+                if total:
+                    lines.append(f"⏱️ Durée estimée de la visite : {total} minutes.")
+                if weather:
+                    lines.append(f"🌦️ Météo : {weather}")
+                lines.append("")
+
+            # Étapes du parcours
+            for i, slot in enumerate(slots, 1):
+                time_slot = slot.get("time_slot", "")
+                group = slot.get("group", {}).get("title", "")
+                subgroup = slot.get("subgroup", {}).get("title", "")
+                lines.append(f"Étape {i} ({time_slot}) : {group} › {subgroup}")
+
+                for place in slot.get("places", []):
+                    place_title = place.get("place", {}).get("title", "Lieu")
+                    dur = place.get("suggested_duration_minutes", 30)
+                    highlights = place.get("highlights", [])
+                    hl_text = ", ".join(o.get("title", "") for o in highlights if o)
+                    if hl_text:
+                        lines.append(f"  • {place_title} (~{dur} min) — à voir : {hl_text}")
+                    else:
+                        lines.append(f"  • {place_title} (~{dur} min)")
+
+                lines.append("")
+
+            answer_text = "\n".join(lines).strip()
+
+    # 3. Fallback ultime
+    if not answer_text:
+        answer_text = "Je n'ai pas pu générer de réponse pour cette question."
 
     return {"answer": answer_text}
-
